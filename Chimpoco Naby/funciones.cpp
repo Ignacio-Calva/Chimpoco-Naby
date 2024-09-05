@@ -80,19 +80,13 @@ string cargarNombre(){
     system("cls");
     cout << "Por favor, ingrese el nombre del jugador: ";
     cin >> nombreIngresado;
+    system("cls");
     return nombreIngresado;
 }
 
 int seleccionPersonaje(){
+    menuSeleccionPersonajes();
     int eleccion=0;
-    cout << "========================================" << endl;
-    cout << "           LISTA DE PERSONAJES          " << endl;
-    cout << "========================================" << endl;
-    cout << "(1) ROCKITO" << endl;
-    cout << "(2) PICANTE" << endl;
-    cout << "(3) FREDDY" << endl;
-    cout << "(4) RAYIN" << endl;
-    cout << "========================================" << endl;
     while (eleccion == 0){
         cout << "Ingrese el personaje deseado: ";
         cin >> eleccion;
@@ -111,11 +105,24 @@ int seleccionPersonaje(){
             cout << "El personaje seleccionado es RAYIN" << endl;
             break;
         default:
+            system("cls");
             cout << "Opcion invalida. Elija un numero valido." << endl;
+            menuSeleccionPersonajes();
             eleccion = 0;
             break;
         }
     }
     system("pause");
     return eleccion;
+}
+
+void menuSeleccionPersonajes(){
+    cout << "========================================" << endl;
+    cout << "           LISTA DE PERSONAJES          " << endl;
+    cout << "========================================" << endl;
+    cout << "(1) ROCKITO" << endl;
+    cout << "(2) PICANTE" << endl;
+    cout << "(3) FREDDY" << endl;
+    cout << "(4) RAYIN" << endl;
+    cout << "========================================" << endl;
 }

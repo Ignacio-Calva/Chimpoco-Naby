@@ -2,9 +2,10 @@
 #include <cstring>
 using namespace std;
 
-//
+//MENUS//
 void menuPrincipal ();
 void mostrarMenu ();
+void menuSeleccionPersonajes();
 
 //SWITCH MENU//
 void modoAventura(string &nombreJugador);
@@ -13,6 +14,6 @@ void godMode();
 void estadisticas();
 void manual ();
 
-//CARGA DE DATOS
+//CARGA DE DATOS//
 string cargarNombre();
 int seleccionPersonaje();
