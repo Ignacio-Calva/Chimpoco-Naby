@@ -4,12 +4,14 @@
 	<cstring>
 	"funciones.h"
 
-1725562957 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
+1725580538 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
 	<cstring>
 
-1725562951 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.cpp
+1725580620 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.cpp
 	<iostream>
 	<cstring>
+	<time.h>
+	<conio.h>
 	"funciones.h"
 
 1725562825 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp

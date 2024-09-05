@@ -18,5 +18,8 @@ void manual ();
 string cargarNombre();
 int seleccionPersonaje();
 
-//BATALLAS
+//BATALLAS//
 void batallaStitchard (int vida, int eleccion) ;
+
+//ACCIONES//
+int realizarAtaque(int danoMin, int danoMax);

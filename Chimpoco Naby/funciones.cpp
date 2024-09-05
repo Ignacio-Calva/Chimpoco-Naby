@@ -1,10 +1,13 @@
 #include <iostream>
 #include <cstring>
+#include <time.h>
+#include <conio.h>
 #include "funciones.h"
 using namespace std;
 
 //MENU PRINCIPAL
 void menuPrincipal (){
+    srand(time(NULL));
     string nombreJugador;
     int opcion = 1;
     while (opcion !=0){
@@ -188,6 +191,14 @@ void batallaStitchard (int vida, int eleccion) {
         cout << "2. Usar item " << endl;
         cout << "Elige tu accion: ";
         system("pause");
+    }
+}
 
-}}
+
+int realizarAtaque(int danoMin, int danoMax){
+    int danoRealizado, diferenciaDano;
+    diferenciaDano = danoMax - danoMin + 1;
+    danoRealizado = danoMin + (rand() % diferenciaDano);
+    return danoRealizado;
+}
 
