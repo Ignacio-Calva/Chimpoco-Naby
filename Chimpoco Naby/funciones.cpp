@@ -55,9 +55,28 @@ void mostrarMenu (){
 }
 
 void modoAventura(string &nombreJugador) {
-    nombreJugador=cargarNombre();
-    seleccionPersonaje();
-}
+    nombreJugador = cargarNombre();
+    int eleccion = seleccionPersonaje();
+    int vida;
+    switch (eleccion) {
+        case 1:
+            vida = 1200;
+            break;
+        case 2 :
+            vida = 500;
+            break;
+        case 3:
+            vida = 700;
+            break;
+        case 4:
+            vida = 600;
+            break;
+    }
+
+    batallaStitchard(vida, eleccion);
+
+  }
+
 
 void modoVersus (){
 
@@ -126,3 +145,43 @@ void menuSeleccionPersonajes(){
     cout << "(4) RAYIN" << endl;
     cout << "========================================" << endl;
 }
+
+void batallaStitchard (int vida, int eleccion) {
+    int personajeVida = vida;
+    int personaje = eleccion;
+    int enemigoVida = 150;
+    string nombrePersonaje;
+
+    switch (personaje) {
+    case 1:
+        nombrePersonaje = "ROCKITO";
+        break;
+    case 2:
+        nombrePersonaje = "PICANTE";
+        break;
+    case 3:
+        nombrePersonaje = "FREDDY";
+        break;
+    case 4:
+        nombrePersonaje = "RAYIN";
+        break;
+    default:
+        nombrePersonaje = "DESCONOCIDO";
+        break;
+    }
+
+    while (vida > 0 && enemigoVida > 0) {
+        system("cls");
+        cout << "========================================" << endl;
+        cout << "         " << nombrePersonaje << " vs STITCHARD    " << endl;
+        cout << "========================================" << endl;
+        cout << nombrePersonaje << " >> Vida: " << personajeVida << endl;
+        cout << "STITCHARD >> Vida: " << enemigoVida << endl;
+        cout << "========================================" << endl;
+        cout << "1. Atacar " << endl;
+        cout << "2. Usar item " << endl;
+        cout << "Elige tu accion: ";
+        system("pause");
+
+}}
+

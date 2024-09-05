@@ -17,3 +17,6 @@ void manual ();
 //CARGA DE DATOS//
 string cargarNombre();
 int seleccionPersonaje();
+
+//BATALLAS
+void batallaStitchard (int vida, int eleccion) ;
