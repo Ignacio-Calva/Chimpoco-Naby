@@ -150,23 +150,29 @@ void batallaStitchard (int vida, int eleccion) {
     int personajeVida = vida;
     int personaje = eleccion;
     int enemigoVida = 150;
+    int danoMin, danoMax;
     string nombrePersonaje;
 
     switch (personaje) {
     case 1:
         nombrePersonaje = "ROCKITO";
+        danoMin = 40;
+        danoMax = 50;
         break;
     case 2:
         nombrePersonaje = "PICANTE";
+        danoMin = 55;
+        danoMax = 65;
         break;
     case 3:
         nombrePersonaje = "FREDDY";
+        danoMin = 35;
+        danoMax = 55;
         break;
     case 4:
         nombrePersonaje = "RAYIN";
-        break;
-    default:
-        nombrePersonaje = "DESCONOCIDO";
+        danoMin = 15;
+        danoMax = 85;
         break;
     }
 
