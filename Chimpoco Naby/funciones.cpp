@@ -190,6 +190,14 @@ void batallaStitchard (int vida, int eleccion) {
         cout << "1. Atacar " << endl;
         cout << "2. Usar item " << endl;
         cout << "Elige tu accion: ";
+        int opcion;
+        cin >> opcion;
+
+        if (opcion == 1) {
+            int dano = realizarAtaque (danoMin, danoMax);
+            enemigoVida -= dano;
+            cout << nombrePersonaje << " ha infringido " << dano << " de dano a STITCHARD" << endl;
+        }
         system("pause");
     }
 }
