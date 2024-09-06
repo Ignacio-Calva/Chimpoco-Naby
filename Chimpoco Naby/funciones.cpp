@@ -185,27 +185,16 @@ int realizarAtaque(int danoMin, int danoMax){
 int Turnos (int vida, int enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax){
 int ronda = 1;
     while (vida > 0 && enemigoVida > 0) {
-        switch (ronda) {
-            case 1:
-                turnoJugador(ronda, vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax);
-                break;
-            case 2:
-                turnoEnemigo(ronda, vida, nombrePersonaje, nombreEnemigo, enemigoVida);
-                break;
-            case 3:
-                if (vida <= 0 && enemigoVida <= 0) {
-                    cout << "Ambos han muerto, es un empate!" << endl;
-                    return 0;
-                } else if (vida <= 0) {
-                    cout << "Has muerto, " << nombreEnemigo<< " gana!" << endl;
-                    return 0;
-                } else if (enemigoVida <= 0) {
-                    cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
-                    return 0;
-                }
+        switch (ronda){
+            case 1: turnoJugador (ronda, vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax);
+            break;
+            case 2: turnoEnemigo (ronda, vida, nombrePersonaje, nombreEnemigo, enemigoVida);
+            break;
         }
+    }
+    cout<<"FINALIZO LA RONDA"<<endl;
     system ("pause");
-}}
+}
 
 
 //TURNO JUGADOR
@@ -228,15 +217,23 @@ int turnoJugador (int &ronda, int vida, int &enemigoVida, string nombrePersonaje
             int dano = realizarAtaque (danoMin, danoMax);
             enemigoVida -= dano;
             cout << nombrePersonaje << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
-        }
+        } else items ();
 
-        if (vida == 0 && enemigoVida == 0) ronda = 3;
+        if (vida <= 0 && enemigoVida <= 0) {
+                    cout << "Ambos han muerto, es un empate!" << endl;
+                    return 0;
+                } else if (vida <= 0) {
+                    cout << "Has muerto, " << nombreEnemigo << " gana!" << endl;
+                    return 0;
+                } else if (enemigoVida <= 0) {
+                    cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
+                    return 0;
+                }
 
-        system("pause");
 }
 
 
-//TURNO STITCHARD
+//TURNO ENEMIGO
 int turnoEnemigo (int &ronda, int &vida, string nombrePersonaje, string nombreEnemigo, int enemigoVida) {
 ronda = 1;
 system("cls");
@@ -249,8 +246,5 @@ system("cls");
         cout << nombreEnemigo << " >> Vida: " << enemigoVida << endl;
         cout << "========================================" << endl;
         cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de daño a " << nombrePersonaje << endl;
-
-        if (vida == 0 && enemigoVida == 0) ronda = 3;
-
         system ("pause");
 }
