@@ -60,23 +60,36 @@ void mostrarMenu (){
 void modoAventura(string &nombreJugador) {
     nombreJugador = cargarNombre();
     int eleccion = seleccionPersonaje();
-    int vida;
+    int vida, danoMin, danoMax;
+    string nombrePersonaje;
     switch (eleccion) {
         case 1:
             vida = 1200;
+            nombrePersonaje = "ROCKITO";
+            danoMin = 40;
+            danoMax = 50;
             break;
         case 2 :
             vida = 500;
+            nombrePersonaje = "PICANTE";
+            danoMin = 55;
+            danoMax = 65;
             break;
         case 3:
             vida = 700;
+             nombrePersonaje = "FREDDY";
+            danoMin = 35;
+            danoMax = 55;
             break;
         case 4:
             vida = 600;
+            nombrePersonaje = "RAYIN";
+            danoMin = 15;
+            danoMax = 85;
             break;
     }
 
-    batallaStitchard(vida, eleccion);
+    batallaStitchard(vida, eleccion, nombrePersonaje, danoMin, danoMax);
 
   }
 
@@ -149,43 +162,61 @@ void menuSeleccionPersonajes(){
     cout << "========================================" << endl;
 }
 
-void batallaStitchard (int vida, int eleccion) {
-    int personajeVida = vida;
-    int personaje = eleccion;
+//BATALLA STITCHARD
+void batallaStitchard (int vida, int eleccion, string nombrePersonaje, int danoMin, int danoMax) {
     int enemigoVida = 150;
-    int danoMin, danoMax;
-    string nombrePersonaje;
+    string nombreEnemigo = "STITCHARD";
+    Turnos (vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax);
 
-    switch (personaje) {
-    case 1:
-        nombrePersonaje = "ROCKITO";
-        danoMin = 40;
-        danoMax = 50;
-        break;
-    case 2:
-        nombrePersonaje = "PICANTE";
-        danoMin = 55;
-        danoMax = 65;
-        break;
-    case 3:
-        nombrePersonaje = "FREDDY";
-        danoMin = 35;
-        danoMax = 55;
-        break;
-    case 4:
-        nombrePersonaje = "RAYIN";
-        danoMin = 15;
-        danoMax = 85;
-        break;
-    }
 
+
+
+}
+
+//REALIZAR ATAQUE
+int realizarAtaque(int danoMin, int danoMax){
+    int danoRealizado, diferenciaDano;
+    diferenciaDano = danoMax - danoMin + 1;
+    danoRealizado = danoMin + (rand() % diferenciaDano);
+    return danoRealizado;
+}
+
+//TURNOS
+int Turnos (int vida, int enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax){
+int ronda = 1;
     while (vida > 0 && enemigoVida > 0) {
+        switch (ronda) {
+            case 1:
+                turnoJugador(ronda, vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax);
+                break;
+            case 2:
+                turnoEnemigo(ronda, vida, nombrePersonaje, nombreEnemigo, enemigoVida);
+                break;
+            case 3:
+                if (vida <= 0 && enemigoVida <= 0) {
+                    cout << "Ambos han muerto, es un empate!" << endl;
+                    return 0;
+                } else if (vida <= 0) {
+                    cout << "Has muerto, " << nombreEnemigo<< " gana!" << endl;
+                    return 0;
+                } else if (enemigoVida <= 0) {
+                    cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
+                    return 0;
+                }
+        }
+    system ("pause");
+}}
+
+
+//TURNO JUGADOR
+int turnoJugador (int &ronda, int vida, int &enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax){
+    ronda = 2;
         system("cls");
         cout << "========================================" << endl;
-        cout << "         " << nombrePersonaje << " vs STITCHARD    " << endl;
+        cout << "         " << nombrePersonaje << " vs " << nombreEnemigo << endl;
         cout << "========================================" << endl;
-        cout << nombrePersonaje << " >> Vida: " << personajeVida << endl;
-        cout << "STITCHARD >> Vida: " << enemigoVida << endl;
+        cout << nombrePersonaje << " >> Vida: " << vida << endl;
+        cout << nombreEnemigo << " >> Vida: " << enemigoVida << endl;
         cout << "========================================" << endl;
         cout << "1. Atacar " << endl;
         cout << "2. Usar item " << endl;
@@ -196,17 +227,30 @@ void batallaStitchard (int vida, int eleccion) {
         if (opcion == 1) {
             int dano = realizarAtaque (danoMin, danoMax);
             enemigoVida -= dano;
-            cout << nombrePersonaje << " ha infringido " << dano << " de dano a STITCHARD" << endl;
+            cout << nombrePersonaje << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
         }
+
+        if (vida == 0 && enemigoVida == 0) ronda = 3;
+
         system("pause");
-    }
 }
 
 
-int realizarAtaque(int danoMin, int danoMax){
-    int danoRealizado, diferenciaDano;
-    diferenciaDano = danoMax - danoMin + 1;
-    danoRealizado = danoMin + (rand() % diferenciaDano);
-    return danoRealizado;
-}
+//TURNO STITCHARD
+int turnoEnemigo (int &ronda, int &vida, string nombrePersonaje, string nombreEnemigo, int enemigoVida) {
+ronda = 1;
+system("cls");
+ int danoEnemigo = realizarAtaque(10, 20);
+        vida -= danoEnemigo;
+        cout << "========================================" << endl;
+        cout << "         " << nombrePersonaje << " vs " << nombreEnemigo << endl;
+        cout << "========================================" << endl;
+        cout << nombrePersonaje << " >> Vida: " << vida << endl;
+        cout << nombreEnemigo << " >> Vida: " << enemigoVida << endl;
+        cout << "========================================" << endl;
+        cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de daño a " << nombrePersonaje << endl;
 
+        if (vida == 0 && enemigoVida == 0) ronda = 3;
+
+        system ("pause");
+}
