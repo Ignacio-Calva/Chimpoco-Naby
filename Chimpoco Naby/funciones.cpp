@@ -119,6 +119,8 @@ void manual () {
 
 }
 
+
+//CARGAR NOMBRE
 string cargarNombre(){
     string nombreIngresado;
     system("cls");
@@ -128,6 +130,8 @@ string cargarNombre(){
     return nombreIngresado;
 }
 
+
+//SELECCION PERSONAJE
 int seleccionPersonaje(){
     menuSeleccionPersonajes();
     int eleccion=0;
@@ -160,6 +164,8 @@ int seleccionPersonaje(){
     return eleccion;
 }
 
+
+//MENU SELECCION PERSONAJE
 void menuSeleccionPersonajes(){
     cout << "========================================" << endl;
     cout << "           LISTA DE PERSONAJES          " << endl;
@@ -171,6 +177,7 @@ void menuSeleccionPersonajes(){
     cout << "========================================" << endl;
 }
 
+
 //BATALLA STITCHARD
 void batallaStitchard (int vida, int eleccion, string nombrePersonaje, int danoMin, int danoMax) {
     int enemigoVida = 150;
@@ -181,6 +188,7 @@ void batallaStitchard (int vida, int eleccion, string nombrePersonaje, int danoM
     Turnos (vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax, danoMinEnemigo, danoMaxEnemigo, idEnemigo);
 }
 
+
 //REALIZAR ATAQUE
 int realizarAtaque(int danoMin, int danoMax){
     int danoRealizado, diferenciaDano;
@@ -188,6 +196,7 @@ int realizarAtaque(int danoMin, int danoMax){
     danoRealizado = danoMin + (rand() % diferenciaDano);
     return danoRealizado;
 }
+
 
 //TURNOS
 int Turnos (int vida, int enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax, int danoMinEnemigo, int danoMaxEnemigo, int idEnemigo){
@@ -268,6 +277,8 @@ void turnoEnemigo (int &ronda, int &vida, string nombrePersonaje, string nombreE
     }
 }
 
+
+//PASIVAS DE ENEMIGOS
 void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, int &enemigoVida){
     switch (idEnemigo){
     case 1:
@@ -290,16 +301,29 @@ void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, 
     }
 }
 
+
+//ELEGIR POCIONES
 void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargasPocionVida){
     int opcion;
     system("cls");
     cout << "======================================" << endl;
     cout << "=========POCIONES DISPONIBLES=========" << endl;
     cout << "======================================" << endl;
-    cout << "Pociones de Boost de ataque: " << cargasBoostAtaque << endl;
-    cout << "Pociones de Boost de defensa: " << cargasBoostDefensa << endl;
-    cout << "Pociones de Pociones de vida: " << cargasPocionVida << endl;
+    cout << "1) Pociones de Boost de ataque: " << cargasBoostAtaque << endl;
+    cout << "2) Pociones de Boost de defensa: " << cargasBoostDefensa << endl;
+    cout << "3) Pociones de Pociones de vida: " << cargasPocionVida << endl;
     cout << "======================================" << endl;
     cout << "Por favor, elija la pocion deseada: ";
     cin >> opcion;
+    switch (opcion){
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        break;
+    }
+
 }
