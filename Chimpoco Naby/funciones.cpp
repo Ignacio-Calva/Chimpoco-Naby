@@ -30,7 +30,7 @@ void menuPrincipal (){
 //            manual ();
 //            break;
         case 0:
-            cout<<"Saliedo del programa..."<<endl;
+            cout<<"Saliendo del programa..."<<endl;
             break;
         default:
             cout<<"Ingrese una opcion correcta."<<endl;
@@ -56,12 +56,7 @@ void mostrarMenu (){
     cout<<"================================================="<<endl;
     cout<<"Ingrese la opcion deseada: ";
 }
-
-void modoAventura(string &nombreJugador) {
-    nombreJugador = cargarNombre();
-    int eleccion = seleccionPersonaje();
-    int vida, danoMin, danoMax;
-    string nombrePersonaje;
+void asignarEstadisticas(int eleccion, int &vida, string &nombrePersonaje, int &danoMin, int &danoMax){
     switch (eleccion) {
         case 1:
             vida = 1200;
@@ -88,9 +83,23 @@ void modoAventura(string &nombreJugador) {
             danoMax = 85;
             break;
     }
+}
 
+void modoAventura(string &nombreJugador) {
+    nombreJugador = cargarNombre();
+    int eleccion = seleccionPersonaje();
+    int vida, danoMin, danoMax;
+    string nombrePersonaje;
+
+    asignarEstadisticas(eleccion, vida, nombrePersonaje, danoMin, danoMax);
+    int cargasBoostAtaque = 1;
+    int cargasBoostDefensa = 1;
+    int cargasPocionVida = 2;
     batallaStitchard(vida, eleccion, nombrePersonaje, danoMin, danoMax);
-
+    asignarEstadisticas(eleccion, vida, nombrePersonaje, danoMin, danoMax);
+    cargasBoostAtaque = 1;
+    cargasBoostDefensa = 1;
+    cargasPocionVida = 2;
   }
 
 
@@ -192,8 +201,6 @@ int Turnos (int vida, int enemigoVida, string nombrePersonaje, string nombreEnem
             break;
         }
     }
-    //cout<<"FINALIZO LA RONDA"<<endl;
-    //system ("pause");
 }
 
 
@@ -212,24 +219,21 @@ void turnoJugador (int &ronda, int vida, int &enemigoVida, string nombrePersonaj
         cout << "Elige tu accion: ";
         int opcion;
         cin >> opcion;
+        while (opcion != 1 && opcion != 2){
+            cout << "Opcion invalida." << endl;
+            cout << "Elige tu accion: ";
+            cin >> opcion;
+        }
+            if (opcion == 1) {
+                int dano = realizarAtaque (danoMin, danoMax);
 
-        if (opcion == 1) {
-            int dano = realizarAtaque (danoMin, danoMax);
-            enemigoVida -= dano;
-            cout << nombrePersonaje << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
-            system ("pause");
-        } //else items ();
+                enemigoVida -= dano;
+                cout << nombrePersonaje << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
+                system ("pause");
+            } else if (opcion == 2){
+                //ACA VA LA FUNCION XD
 
-        /*if (vida <= 0 && enemigoVida <= 0) {
-                    cout << "Ambos han muerto, es un empate!" << endl;
-                    ronda = 0;
-                } else if (vida <= 0) {
-                    cout << "Has muerto, " << nombreEnemigo << " gana!" << endl;
-                    ronda = 0;
-                } else if (enemigoVida <= 0) {
-                    cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
-                    ronda = 0;
-                }*/
+            }
         if (enemigoVida <= 0) {
             system("cls");
             cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
@@ -284,4 +288,18 @@ void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, 
     default:
         break;
     }
+}
+
+void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargasPocionVida){
+    int opcion;
+    system("cls");
+    cout << "======================================" << endl;
+    cout << "=========POCIONES DISPONIBLES=========" << endl;
+    cout << "======================================" << endl;
+    cout << "Pociones de Boost de ataque: " << cargasBoostAtaque << endl;
+    cout << "Pociones de Boost de defensa: " << cargasBoostDefensa << endl;
+    cout << "Pociones de Pociones de vida: " << cargasPocionVida << endl;
+    cout << "======================================" << endl;
+    cout << "Por favor, elija la pocion deseada: ";
+    cin >> opcion;
 }

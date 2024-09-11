@@ -17,6 +17,7 @@ void manual ();
 //CARGA DE DATOS//
 string cargarNombre();
 int seleccionPersonaje();
+void asignarEstadisticas(int eleccion, int &vida, string &nombrePersonaje, int &danoMin, int &danoMax);
 
 //BATALLAS//
 void batallaStitchard (int vida, int eleccion, string nombrePersonaje, int danoMin, int danoMax);
