@@ -56,69 +56,6 @@ void mostrarMenu (){
     cout<<"================================================="<<endl;
     cout<<"Ingrese la opcion deseada: ";
 }
-void asignarEstadisticas(int eleccion, int &vida, string &nombrePersonaje, int &danoMin, int &danoMax){
-    switch (eleccion) {
-        case 1:
-            vida = 1200;
-            nombrePersonaje = "ROCKITO";
-            danoMin = 40;
-            danoMax = 50;
-            break;
-        case 2 :
-            vida = 500;
-            nombrePersonaje = "PICANTE";
-            danoMin = 55;
-            danoMax = 65;
-            break;
-        case 3:
-            vida = 700;
-             nombrePersonaje = "FREDDY";
-            danoMin = 35;
-            danoMax = 55;
-            break;
-        case 4:
-            vida = 600;
-            nombrePersonaje = "RAYIN";
-            danoMin = 15;
-            danoMax = 85;
-            break;
-    }
-}
-
-void modoAventura(string &nombreJugador) {
-    nombreJugador = cargarNombre();
-    int eleccion = seleccionPersonaje();
-    int vida, danoMin, danoMax;
-    string nombrePersonaje;
-
-    asignarEstadisticas(eleccion, vida, nombrePersonaje, danoMin, danoMax);
-    int cargasBoostAtaque = 1;
-    int cargasBoostDefensa = 1;
-    int cargasPocionVida = 2;
-    batallaStitchard(vida, eleccion, nombrePersonaje, danoMin, danoMax);
-    asignarEstadisticas(eleccion, vida, nombrePersonaje, danoMin, danoMax);
-    cargasBoostAtaque = 1;
-    cargasBoostDefensa = 1;
-    cargasPocionVida = 2;
-  }
-
-
-void modoVersus (){
-
-}
-
-void godMode() {
-
-}
-
-void estadisticas() {
-
-}
-
-void manual () {
-
-}
-
 
 //CARGAR NOMBRE
 string cargarNombre(){
@@ -130,6 +67,17 @@ string cargarNombre(){
     return nombreIngresado;
 }
 
+//MENU SELECCION PERSONAJE
+void menuSeleccionPersonajes(){
+    cout << "========================================" << endl;
+    cout << "           LISTA DE PERSONAJES          " << endl;
+    cout << "========================================" << endl;
+    cout << "(1) ROCKITO" << endl;
+    cout << "(2) PICANTE" << endl;
+    cout << "(3) FREDDY" << endl;
+    cout << "(4) RAYIN" << endl;
+    cout << "========================================" << endl;
+}
 
 //SELECCION PERSONAJE
 int seleccionPersonaje(){
@@ -164,30 +112,188 @@ int seleccionPersonaje(){
     return eleccion;
 }
 
-
-//MENU SELECCION PERSONAJE
-void menuSeleccionPersonajes(){
-    cout << "========================================" << endl;
-    cout << "           LISTA DE PERSONAJES          " << endl;
-    cout << "========================================" << endl;
-    cout << "(1) ROCKITO" << endl;
-    cout << "(2) PICANTE" << endl;
-    cout << "(3) FREDDY" << endl;
-    cout << "(4) RAYIN" << endl;
-    cout << "========================================" << endl;
+//MODO AVENTURA
+void modoAventura (string &nombreJugador){
+    int chimpoco [8], enemigo [5];
+    string nombreChimpoco = cargarNombre();
+    string nombreEnemigo;
+    int eleccion = seleccionPersonaje();
+    for (int i = 1 ; i < 6 ; i++ ){
+        inicializarChimpoco (eleccion, chimpoco, nombreChimpoco);
+        inicializarEnemigo (i, enemigo, nombreEnemigo);
+        batalla (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+    }
 }
 
-
-//BATALLA STITCHARD
-void batallaStitchard (int vida, int eleccion, string nombrePersonaje, int danoMin, int danoMax) {
-    int enemigoVida = 150;
-    int danoMinEnemigo = 5;
-    int danoMaxEnemigo = 15;
-    string nombreEnemigo = "STITCHARD";
-    int idEnemigo = 1;
-    Turnos (vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax, danoMinEnemigo, danoMaxEnemigo, idEnemigo);
+//INICIALIZAR CHIMPOCO
+void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) {
+    switch (eleccion){
+        case 1: // Rockito
+            /* VIDA */ chimpoco [0] = 1200;
+            /* DAÑO MINIMO */chimpoco [1] = 40;
+            /* DAÑO MAXIMO */chimpoco [2] = 50;
+            /* TIPO DE CHIMPOCO */chimpoco [3] = eleccion;
+            nombreChimpoco = "ROCKYTO" ;
+            break;
+        case 2: // Picante
+            chimpoco [0] = 500;
+            chimpoco [1] = 55;
+            chimpoco [2] = 65;
+            chimpoco [3] = eleccion;
+            nombreChimpoco = "PICANTE" ;
+            break;
+        case 3: // Freddy
+            chimpoco [0] = 700;
+            chimpoco [1] = 35;
+            chimpoco [2] = 55;
+            chimpoco [3] = eleccion;
+            nombreChimpoco = "FREDDY" ;
+            break;
+        case 4: // Rayin
+            chimpoco [0] = 600;
+            chimpoco [1] = 15;
+            chimpoco [2] = 85;
+            chimpoco [3] = eleccion;
+            nombreChimpoco = "RAYIN" ;
+            break;
+        default:
+            break;
+    }
 }
 
+//INICIALIZAR ENEMIGO
+void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
+    switch (i){
+        case 1: // Stitchard
+            enemigo[0] = 150;
+            enemigo[1] = 5;
+            enemigo[2] = 15;
+            enemigo[3] = i;
+            nombreEnemigo = "STITCHARD" ;
+            break;
+        case 2: // FurbyZhor
+            enemigo[0] = 300;
+            enemigo[1] = 25;
+            enemigo[2] = 45;
+            enemigo[3] = i;
+            nombreEnemigo = "FURBYZHOR" ;
+            break;
+        case 3: // HelloCathy
+            enemigo[0] = 450;
+            enemigo[1] = 40;
+            enemigo[2] = 55;
+            enemigo[3] = i;
+            nombreEnemigo = "HELLOCATHY" ;
+            break;
+        case 4: // BabyYorda
+            enemigo[0] = 700;
+            enemigo[1] = 55;
+            enemigo[2] = 75;
+            enemigo[3] = i;
+            nombreEnemigo = "BABYYORDA" ;
+            break;
+        case 5: // TioMickey
+            enemigo[0] = 1500;
+            enemigo[1] = 25;
+            enemigo[2] = 150;
+            enemigo[3] = i;
+            nombreEnemigo = "TIOMICKEY" ;
+            break;
+        default:
+            break;
+    }
+}
+
+//BATALLA
+void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo) {
+    int ronda = 1;
+    int contRonda = 0;
+
+    while (true) {
+        system("cls");
+        cout << "========================================" << endl;
+        cout << "         BATALLA INICIADA              " << endl;
+        cout << "========================================" << endl;
+        cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
+        cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+        cout << "========================================" << endl;
+
+        turnoJugador(ronda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+
+        if (enemigo[0] <= 0) {
+            cout << "Has ganado! " << nombreEnemigo << " ha sido derrotado!" << endl;
+            system("pause");
+            break;
+        }
+
+        turnoEnemigo(ronda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+
+        if (chimpoco[0] <= 0) {
+            cout << "Has sido derrotado! " << nombreEnemigo << " gana!" << endl;
+            system("pause");
+            break;
+
+    }
+}
+
+}
+
+//TURNO JUGADOR
+void turnoJugador(int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+    ronda ++;
+    system("cls");
+    cout << "========================================" << endl;
+    cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+    cout << "========================================" << endl;
+    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
+    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    cout << "========================================" << endl;
+    cout << "1. Atacar " << endl;
+    cout << "2. Usar item " << endl;
+    cout << "Elige tu accion: ";
+    int opcion;
+    cin >> opcion;
+    while (opcion != 1 && opcion != 2){
+        cout << "Opcion invalida." << endl;
+        cout << "Elige tu accion: ";
+        cin >> opcion;
+    }
+
+    int danoMin = chimpoco[1];
+    int danoMax = chimpoco[2];
+
+    if (opcion == 1) {
+        int dano = realizarAtaque (danoMin, danoMax);
+        enemigo [0] -= dano;
+        cout << nombreChimpoco << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
+           system ("pause");
+    } else if (opcion == 2){
+        //ACA VA LA FUNCION XD
+    }
+}
+
+//TURNO ENEMIGO
+void turnoEnemigo (int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
+    int contRondas =0;
+    contRondas ++;
+    ronda ++;
+    system("cls");
+
+    cout << "========================================" << endl;
+    cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+    cout << "========================================" << endl;
+    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
+    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    cout << "========================================" << endl;
+
+    int danoMin = enemigo[1];
+    int danoMax = enemigo[2];
+
+    int danoEnemigo = realizarAtaque(danoMin, danoMax);
+    chimpoco [0] -= danoEnemigo;
+    cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl;
+    system("pause");
+}
 
 //REALIZAR ATAQUE
 int realizarAtaque(int danoMin, int danoMax){
@@ -198,84 +304,9 @@ int realizarAtaque(int danoMin, int danoMax){
 }
 
 
-//TURNOS
-int Turnos (int vida, int enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax, int danoMinEnemigo, int danoMaxEnemigo, int idEnemigo){
-    int ronda = 1;
-    int contRonda = 0;
-    while (ronda != 0) {
-        switch (ronda){
-            case 1: turnoJugador (ronda, vida, enemigoVida, nombrePersonaje, nombreEnemigo, danoMin, danoMax);
-            break;
-            case 2: turnoEnemigo (ronda, vida, nombrePersonaje, nombreEnemigo, enemigoVida, danoMinEnemigo, danoMaxEnemigo, contRonda, idEnemigo);
-            break;
-        }
-    }
-}
-
-
-//TURNO JUGADOR
-void turnoJugador (int &ronda, int vida, int &enemigoVida, string nombrePersonaje, string nombreEnemigo, int danoMin, int danoMax){
-        ronda = 2;
-        system("cls");
-        cout << "========================================" << endl;
-        cout << "         " << nombrePersonaje << " vs " << nombreEnemigo << endl;
-        cout << "========================================" << endl;
-        cout << nombrePersonaje << " >> Vida: " << vida << endl;
-        cout << nombreEnemigo << " >> Vida: " << enemigoVida << endl;
-        cout << "========================================" << endl;
-        cout << "1. Atacar " << endl;
-        cout << "2. Usar item " << endl;
-        cout << "Elige tu accion: ";
-        int opcion;
-        cin >> opcion;
-        while (opcion != 1 && opcion != 2){
-            cout << "Opcion invalida." << endl;
-            cout << "Elige tu accion: ";
-            cin >> opcion;
-        }
-            if (opcion == 1) {
-                int dano = realizarAtaque (danoMin, danoMax);
-
-                enemigoVida -= dano;
-                cout << nombrePersonaje << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
-                system ("pause");
-            } else if (opcion == 2){
-                //ACA VA LA FUNCION XD
-
-            }
-        if (enemigoVida <= 0) {
-            system("cls");
-            cout << "Has ganado, " << nombreEnemigo << " ha sido derrotado!" << endl;
-            system("pause");
-            ronda = 0;
-        }
-}
-
-
-//TURNO ENEMIGO
-void turnoEnemigo (int &ronda, int &vida, string nombrePersonaje, string nombreEnemigo, int enemigoVida, int danoMin, int danoMax, int &contRondas, int idEnemigo) {
-    ronda = 1;
-    contRondas++;
-    system("cls");
-
-    cout << "========================================" << endl;
-    cout << "         " << nombrePersonaje << " vs " << nombreEnemigo << endl;
-    cout << "========================================" << endl;
-    cout << nombrePersonaje << " >> Vida: " << vida << endl;
-    cout << nombreEnemigo << " >> Vida: " << enemigoVida << endl;
-    cout << "========================================" << endl;
-    pasivasEnemigos(contRondas, idEnemigo, danoMin, danoMax, enemigoVida);
-    int danoEnemigo = realizarAtaque(danoMin, danoMax);
-    vida -= danoEnemigo;
-    cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombrePersonaje << endl;
-    system("pause");
-    if (vida <= 0){
-        system("cls");
-        cout << "Has muerto, " << nombreEnemigo << " gana!" << endl;
-        system ("pause");
-        ronda = 0;
-    }
-}
+//////////////////////////////////////////////////////////////////////////
+///////////////////////////// EN DESARROLLO /////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 
 //PASIVAS DE ENEMIGOS
@@ -300,7 +331,6 @@ void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, 
         break;
     }
 }
-
 
 //ELEGIR POCIONES
 void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargasPocionVida){
@@ -327,3 +357,9 @@ void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargas
     }
 
 }
+
+//
+void modoVersus (){}
+void godMode(){}
+void estadisticas(){}
+void manual (){}

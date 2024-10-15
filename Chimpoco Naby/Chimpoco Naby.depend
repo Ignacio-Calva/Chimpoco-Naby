@@ -29,3 +29,18 @@
 	<conio.h>
 	"funciones.h"
 
+1725841512 source:d:\usuarios\oem\desktop\juegos\chimpocos\chimpoco-naby\chimpoco naby\main.cpp
+	<iostream>
+	<cstring>
+	"funciones.h"
+
+1729022707 d:\usuarios\oem\desktop\juegos\chimpocos\chimpoco-naby\chimpoco naby\funciones.h
+	<cstring>
+
+1729022793 source:d:\usuarios\oem\desktop\juegos\chimpocos\chimpoco-naby\chimpoco naby\funciones.cpp
+	<iostream>
+	<cstring>
+	<time.h>
+	<conio.h>
+	"funciones.h"
+
