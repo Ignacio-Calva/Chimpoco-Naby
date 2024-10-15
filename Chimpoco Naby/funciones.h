@@ -20,7 +20,6 @@ int seleccionPersonaje();
 void inicializarChimpoco(int eleccion, int chimpoco[], string &nombreChimpoco);
 void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 
-
 //BATALLAS//
 void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
 
@@ -31,3 +30,8 @@ void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, 
 
 //ACCIONES//
 int realizarAtaque(int danoMin, int danoMax);
+
+//MANUAL//
+void manual ();
+void menumanual ();
+void mostrarOpcion (int opcion);

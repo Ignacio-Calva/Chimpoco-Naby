@@ -26,9 +26,9 @@ void menuPrincipal (){
 //        case 4:
 //            estadisticas ();
 //            break;
-//        case 5:
-//            manual ();
-//            break;
+        case 5:
+              manual ();
+              break;
         case 0:
             cout<<"Saliendo del programa..."<<endl;
             break;
@@ -303,6 +303,92 @@ int realizarAtaque(int danoMin, int danoMax){
     return danoRealizado;
 }
 
+//MANUAL
+void manual (){
+   int opcion;
+   while (true) {
+        menumanual();
+        cin >> opcion;
+
+        if (opcion < 6 && opcion > 0){
+            mostrarOpcion(opcion);
+        } else if (opcion == 0) {
+            cout << "Saliendo al menú... " << endl;
+            break;
+        } else {
+            cout << "Opcion invalida, ingrese una opcion correcta..." << endl ;
+            system ("pause");
+        }
+   }
+}
+
+void menumanual () {
+    system("cls");
+    cout<<"================================================="<<endl;
+    cout<<"           MANUAL DE USUARIO - CHIMPOCO          "<<endl;
+    cout<<"================================================="<<endl;
+    cout<<"1. Especificaciones del Juego                    "<<endl;
+    cout<<"2. Detalle de las Opciones del Menú              "<<endl;
+    cout<<"3. Funcionamiento de los Combates                "<<endl;
+    cout<<"4. Uso de Pociones                               "<<endl;
+    cout<<"5. Creditos de los Desarrolladores               "<<endl;
+    cout<<"0. Salir al Menu                                 "<<endl;
+    cout<<"================================================="<<endl;
+    cout<<"Ingrese la opcion deseada: ";
+}
+
+void mostrarOpcion(int opcion) {
+    system ("cls");
+    switch(opcion) {
+        case 1:
+            cout << "Especificaciones del Juego: " << endl ;
+            cout << "Titulo: ChimpocoFight " << endl ;
+            cout << "Categoria: Juego en consola " << endl ;
+            cout << "Plataforma: Code::Blocks " << endl ;
+            cout << "Jugadores: 1 o 2 " << endl ;
+            cout << "Genero: Pelea por turnos " << endl ;
+            cout << endl ;
+            cout << "Descripcion: " << endl ;
+            cout << "ChimpocoFight es un juego de pelea por turnos que combina estrategia y azar. " << endl ;
+            cout << "Los jugadores eligen un Chimpoco para enfrentarse a una serie de oponentes, " << endl ;
+            cout << "donde deberan demostrar sus habilidades y superar desafios para alcanzar " << endl;
+            cout << "el titulo de ChimpocoMaster.\n " << endl;
+            system ("pause");
+            break;
+        case 2:
+            cout << "Detalle de las Opciones del Menu: " << endl;
+            cout << "1. Aventura: Inicia la historia principal. " << endl;
+            cout << "2. Versus: Combate entre dos jugadores. " << endl;
+            cout << "3. God Mode: Juega con ventajas ilimitadas. " << endl;
+            cout << "4. Estadisticas: Muestra tus estadisticas. " << endl;
+            cout << "5. Manual: Instrucciones y creditos del juego. " << endl;
+            system ("pause");
+            break;
+        case 3:
+            cout << "Funcionamiento de los Combates: " << endl;
+            cout << "- Cada combate se realiza por turnos. " << endl;
+            cout << "- Elige entre atacar o usar pociones. " << endl;
+            cout << "- La victoria se obtiene al reducir la vida del enemigo a 0. " << endl;
+            system ("pause");
+            break;
+        case 4:
+            cout << "Uso de Pociones: " << endl;
+            cout << "- Boost de ataque: Incrementa tu dano por 30%. " << endl;
+            cout << "- Boost de defensa: Reduce el dano recibido un 20%. " << endl;
+            cout << "- Pocion de vida: Recupera el 50% de tu vida total. " << endl;
+            system ("pause");
+            break;
+        case 5:
+            cout << "Creditos de los Desarrolladores: " << endl;
+            cout << "- Desarrollador : Juana Abril Trinidad " << endl;
+            system ("pause");
+            break;
+        default:
+            cout << "Opcion no valida. " << endl;
+            break;
+    }
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 ///////////////////////////// EN DESARROLLO /////////////////////////////
@@ -361,4 +447,3 @@ void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargas
 void modoVersus (){}
 void godMode(){}
 void estadisticas(){}
-void manual (){}
