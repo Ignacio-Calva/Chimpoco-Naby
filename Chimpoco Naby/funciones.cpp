@@ -115,7 +115,7 @@ int seleccionPersonaje(){
 //MODO AVENTURA
 void modoAventura (string &nombreJugador){
     int chimpoco [8], enemigo [5];
-    string nombreChimpoco = cargarNombre();
+    string nombreChimpoco;
     string nombreEnemigo;
     int eleccion = seleccionPersonaje();
     for (int i = 1 ; i < 6 ; i++ ){
@@ -358,7 +358,6 @@ void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargas
 
 }
 
-//
 void modoVersus (){}
 void godMode(){}
 void estadisticas(){}
