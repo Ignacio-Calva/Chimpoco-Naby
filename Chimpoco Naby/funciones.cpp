@@ -303,7 +303,7 @@ int realizarAtaque(int danoMin, int danoMax){
     return danoRealizado;
 }
 
-//MANUAL
+//MANUAL//
 void manual (){
    int opcion;
    while (true) {
