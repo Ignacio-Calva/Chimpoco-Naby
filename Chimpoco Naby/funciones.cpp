@@ -133,6 +133,9 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             /* DAÑO MINIMO */chimpoco [1] = 40;
             /* DAÑO MAXIMO */chimpoco [2] = 50;
             /* TIPO DE CHIMPOCO */chimpoco [3] = eleccion;
+            /* BOOST DE ATAQUE */ chimpoco [4] = 3
+            /* BOOST DE DEFENZA */ chimpoco [5] = 3
+            /* POCION DE VIDA */[6] = 3
             nombreChimpoco = "ROCKYTO" ;
             break;
         case 2: // Picante
@@ -303,6 +306,36 @@ int realizarAtaque(int danoMin, int danoMax){
     return danoRealizado;
 }
 
+//POCIONES
+void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+    menuitems (nombreChimpoco, nombreEnemigo);
+
+
+
+
+}
+
+void menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+    int opcion ;
+    system("cls");
+    cout << "========================================" << endl;
+    cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+    cout << "========================================" << endl;
+    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
+    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    cout << "========================================" << endl;
+    cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpocos [4] << endl;
+    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpocos [5]<< endl;
+    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpocos [6]" << endl;
+    cout << "Elige tu accion: "
+    cin >> opcion;
+}
+
+
+
+
+
+
 //MANUAL//
 void manual (){
    int opcion;
@@ -441,7 +474,6 @@ void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargas
     default:
         break;
     }
-
 }
 
 void modoVersus (){}
