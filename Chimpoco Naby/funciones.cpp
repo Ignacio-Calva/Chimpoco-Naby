@@ -69,6 +69,7 @@ string cargarNombre(){
 
 //MENU SELECCION PERSONAJE
 void menuSeleccionPersonajes(){
+    system("cls");
     cout << "========================================" << endl;
     cout << "           LISTA DE PERSONAJES          " << endl;
     cout << "========================================" << endl;
@@ -133,9 +134,9 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             /* DAÑO MINIMO */chimpoco [1] = 40;
             /* DAÑO MAXIMO */chimpoco [2] = 50;
             /* TIPO DE CHIMPOCO */chimpoco [3] = eleccion;
-            /* BOOST DE ATAQUE */ chimpoco [4] = 3
-            /* BOOST DE DEFENZA */ chimpoco [5] = 3
-            /* POCION DE VIDA */[6] = 3
+            /* BOOST DE ATAQUE */ chimpoco [4] = 3;
+            /* BOOST DE DEFENZA */ chimpoco [5] = 3;
+            /* POCION DE VIDA */chimpoco [6] = 3;
             nombreChimpoco = "ROCKYTO" ;
             break;
         case 2: // Picante
@@ -143,6 +144,9 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [1] = 55;
             chimpoco [2] = 65;
             chimpoco [3] = eleccion;
+            chimpoco [4] = 3;
+            chimpoco [5] = 3;
+            chimpoco [6] = 3;
             nombreChimpoco = "PICANTE" ;
             break;
         case 3: // Freddy
@@ -150,6 +154,9 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [1] = 35;
             chimpoco [2] = 55;
             chimpoco [3] = eleccion;
+            chimpoco [4] = 3;
+            chimpoco [5] = 3;
+            chimpoco [6] = 3;
             nombreChimpoco = "FREDDY" ;
             break;
         case 4: // Rayin
@@ -157,6 +164,9 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [1] = 15;
             chimpoco [2] = 85;
             chimpoco [3] = eleccion;
+            chimpoco [4] = 3;
+            chimpoco [5] = 3;
+            chimpoco [6] = 3;
             nombreChimpoco = "RAYIN" ;
             break;
         default:
@@ -271,7 +281,7 @@ void turnoJugador(int &ronda, int chimpoco[], int enemigo[], string nombreChimpo
         cout << nombreChimpoco << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
            system ("pause");
     } else if (opcion == 2){
-        //ACA VA LA FUNCION XD
+        usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
     }
 }
 
@@ -308,14 +318,14 @@ int realizarAtaque(int danoMin, int danoMax){
 
 //POCIONES
 void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
-    menuitems (nombreChimpoco, nombreEnemigo);
+    menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
 
 
 
 }
 
-void menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+void menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     int opcion ;
     system("cls");
     cout << "========================================" << endl;
@@ -324,10 +334,10 @@ void menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nom
     cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
     cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
     cout << "========================================" << endl;
-    cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpocos [4] << endl;
-    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpocos [5]<< endl;
-    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpocos [6]" << endl;
-    cout << "Elige tu accion: "
+    cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << endl;
+    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [5]<< endl;
+    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [6] << endl;
+    cout << "Elige tu accion: ";
     cin >> opcion;
 }
 

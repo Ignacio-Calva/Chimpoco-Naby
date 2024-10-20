@@ -6,6 +6,7 @@ using namespace std;
 void menuPrincipal ();
 void mostrarMenu ();
 void menuSeleccionPersonajes();
+void menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 
 //SWITCH MENU//
 void modoAventura(string &nombreJugador);
@@ -30,6 +31,7 @@ void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, 
 
 //ACCIONES//
 int realizarAtaque(int danoMin, int danoMax);
+void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 
 //MANUAL//
 void manual ();
