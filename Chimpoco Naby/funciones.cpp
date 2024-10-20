@@ -317,15 +317,38 @@ int realizarAtaque(int danoMin, int danoMax){
 }
 
 //POCIONES
-void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
-    menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-
-
-
-
+void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
+    int eleccion = 0;
+    int opcion = menuitems(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+    switch (opcion) {
+        case 1:  // Boost de ataque
+            if (chimpoco[4] > 0) {
+                chimpoco[4]-- ;
+                cout << "Has usado un Boost de ataque. El daño aumentará por 30%!" << endl;
+                chimpoco[1] = chimpoco[1] * 1.3;
+                chimpoco[2] = chimpoco[2] * 1.3;
+            } else {
+                cout << "No tienes más Boost de ataque!" << endl;
+            }
+            break;
+            case 2: if (chimpoco[5] > 0){
+                chimpoco[4] = chimpoco [5] -1; }
+                break;
+            case 3: if (chimpoco[6] > 0){
+                chimpoco[4] = chimpoco [5] -1; }
+                break;
+            default:
+                system("cls");
+                cout << "No tienes items suficientes, reintente con otro" << endl;
+                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+                eleccion = 0;
+                break;
+        }
+    }
 }
 
-void menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+
+int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     int opcion ;
     system("cls");
     cout << "========================================" << endl;
@@ -339,12 +362,8 @@ void menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nomb
     cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [6] << endl;
     cout << "Elige tu accion: ";
     cin >> opcion;
+    return opcion;
 }
-
-
-
-
-
 
 //MANUAL//
 void manual (){
