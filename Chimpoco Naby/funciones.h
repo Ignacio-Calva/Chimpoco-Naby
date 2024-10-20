@@ -6,7 +6,7 @@ using namespace std;
 void menuPrincipal ();
 void mostrarMenu ();
 void menuSeleccionPersonajes();
-void menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 
 //SWITCH MENU//
 void modoAventura(string &nombreJugador);
