@@ -14,15 +14,15 @@
 	<conio.h>
 	"funciones.h"
 
-1725562825 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp
+1726095711 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp
 	<iostream>
 	<cstring>
 	"funciones.h"
 
-1726083610 c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.h
+1726510400 c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.h
 	<cstring>
 
-1726082592 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.cpp
+1726508925 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.cpp
 	<iostream>
 	<cstring>
 	<time.h>
