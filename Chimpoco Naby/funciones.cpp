@@ -115,7 +115,7 @@ int seleccionPersonaje(){
 
 //MODO AVENTURA
 void modoAventura (string &nombreJugador){
-    int chimpoco [8], enemigo [5];
+    int chimpoco [9], enemigo [5];
     string nombreChimpoco;
     string nombreEnemigo;
     int eleccion = seleccionPersonaje();
@@ -135,8 +135,10 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             /* DAÑO MAXIMO */chimpoco [2] = 50;
             /* TIPO DE CHIMPOCO */chimpoco [3] = eleccion;
             /* BOOST DE ATAQUE */ chimpoco [4] = 3;
-            /* BOOST DE DEFENZA */ chimpoco [5] = 3;
-            /* POCION DE VIDA */chimpoco [6] = 3;
+            /* TURNOS BOOST DE ATAQUE */ chimpoco [5] = 0;
+            /* BOOST DE DEFENZA */ chimpoco [6] = 3;
+            /* TURNOS BOOST DE DEFENZA */ chimpoco [7] = 0;
+            /* POCION DE VIDA */chimpoco [8] = 3;
             nombreChimpoco = "ROCKYTO" ;
             break;
         case 2: // Picante
@@ -145,8 +147,10 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [2] = 65;
             chimpoco [3] = eleccion;
             chimpoco [4] = 3;
-            chimpoco [5] = 3;
+            chimpoco [5] = 0;
             chimpoco [6] = 3;
+            chimpoco [7] = 0;
+            chimpoco [8] = 3;
             nombreChimpoco = "PICANTE" ;
             break;
         case 3: // Freddy
@@ -155,8 +159,10 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [2] = 55;
             chimpoco [3] = eleccion;
             chimpoco [4] = 3;
-            chimpoco [5] = 3;
+            chimpoco [5] = 0;
             chimpoco [6] = 3;
+            chimpoco [7] = 0;
+            chimpoco [8] = 3;
             nombreChimpoco = "FREDDY" ;
             break;
         case 4: // Rayin
@@ -165,8 +171,10 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [2] = 85;
             chimpoco [3] = eleccion;
             chimpoco [4] = 3;
-            chimpoco [5] = 3;
+            chimpoco [5] = 0;
             chimpoco [6] = 3;
+            chimpoco [7] = 0;
+            chimpoco [8] = 3;
             nombreChimpoco = "RAYIN" ;
             break;
         default:
@@ -239,9 +247,6 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
             break;
         }
 
-        cout << "RONDA; " << contRonda;
-        system("pause");
-
         turnoEnemigo(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (chimpoco[0] <= 0) {
@@ -251,8 +256,6 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 
         }
 
-        cout << "RONDA; " << contRonda;
-        system("pause");
     }
 
 }
@@ -283,12 +286,12 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
     int danoMax = chimpoco[2];
 
     if (opcion == 1) {
-        int dano = realizarAtaque (danoMin, danoMax);
+        int dano = realizarAtaque (chimpoco, danoMin, danoMax);
         enemigo [0] -= dano;
         cout << nombreChimpoco << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
            system ("pause");
     } else if (opcion == 2){
-        usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
     }
 }
 
@@ -308,51 +311,66 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
     int danoMin = enemigo[1];
     int danoMax = enemigo[2];
 
-    int danoEnemigo = realizarAtaque(danoMin, danoMax);
+    int danoEnemigo = realizarAtaque(chimpoco, danoMin, danoMax);
     chimpoco [0] -= danoEnemigo;
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl;
     system("pause");
 }
 
 //REALIZAR ATAQUE
-int realizarAtaque(int danoMin, int danoMax){
+int realizarAtaque(int chimpoco[], int danoMin, int danoMax){
     int danoRealizado, diferenciaDano;
     diferenciaDano = danoMax - danoMin + 1;
     danoRealizado = danoMin + (rand() % diferenciaDano);
+
+    if (chimpoco [5] > 0){
+    danoRealizado += danoRealizado * 0.30; }
+
     return danoRealizado;
 }
 
-//POCIONES
-void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
+//POCIONES//
+void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda) {
     int eleccion = 0;
     int opcion = menuitems(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
     switch (opcion) {
         case 1:  // Boost de ataque
-            if (chimpoco[4] > 0) {
-                chimpoco[4]-- ;
-                cout << "Has usado un Boost de ataque. El daño aumentará por 30%!" << endl;
-                chimpoco[1] = chimpoco[1] * 1.3;
-                chimpoco[2] = chimpoco[2] * 1.3;
+            if (chimpoco [4] > 0) {
+                boostataque(chimpoco);
             } else {
-                cout << "No tienes más Boost de ataque!" << endl;
-            }
-            break;
-            case 2: if (chimpoco[5] > 0){
-                chimpoco[4] = chimpoco [5] -1; }
-                break;
-            case 3: if (chimpoco[6] > 0){
-                chimpoco[4] = chimpoco [5] -1; }
-                break;
-            default:
                 system("cls");
                 cout << "No tienes items suficientes, reintente con otro" << endl;
                 menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-                eleccion = 0;
-                break;
+                eleccion = 0;}
+            break;
+        case 2: //Boost de defenza
+            if (chimpoco [6] > 0) {
+                boostdefenza(chimpoco, enemigo, contRonda);
+            } else {
+                system("cls");
+                cout << "No tienes items suficientes, reintente con otro" << endl;
+                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+                eleccion = 0;}
+            break;
+        case 3: //Poti de vida
+           if (chimpoco [8] > 0) {
+                pocionvida(chimpoco);
+            } else {
+                system("cls");
+                cout << "No tienes items suficientes, reintente con otro" << endl;
+                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+                eleccion = 0;}
+            break;
+        default:
+            system("cls");
+            cout << "No tienes items suficientes, reintente con otro" << endl;
+            menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+            eleccion = 0;
+            break;
     }
 }
 
-
+//MENU ITEMS
 int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     int opcion ;
     system("cls");
@@ -363,12 +381,57 @@ int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
     cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
     cout << "========================================" << endl;
     cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << endl;
-    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [5]<< endl;
-    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [6] << endl;
+    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< endl;
+    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << endl;
     cout << "Elige tu accion: ";
     cin >> opcion;
     return opcion;
 }
+
+//BOOST ATAQUE
+void boostataque (int chimpoco[]){
+    chimpoco [4]--;
+    chimpoco [5] = 2;
+}
+
+//BOOTS DEFENZA
+void boostdefenza (int chimpoco[], int enemigo[], int contRonda){
+    chimpoco [6]--;
+    if (enemigo [3] = 2 && contRonda == 4){
+        chimpoco [7] = chimpoco [7]++; }
+    chimpoco [7] = 2;
+}
+
+//POTI DEFENZA
+void pocionvida (int chimpoco[]){
+switch (chimpoco[3]){
+        case 1:
+            chimpoco[0] = chimpoco [0] + 600;
+            if (chimpoco [0] > 1200){
+                chimpoco[0] = 1200;
+            }
+            break;
+        case 2:
+            chimpoco[0] = chimpoco [0] + 250;
+            if (chimpoco [0] > 500){
+                chimpoco[0] = 500;
+            }
+            break;
+        case 3:
+            chimpoco[0] = chimpoco [0] + 350;
+            if (chimpoco [0] > 700){
+                chimpoco[0] = 700;
+            }
+            break;
+        case 4:
+            chimpoco[0] = chimpoco [0] + 300;
+            if (chimpoco [0] > 600){
+                chimpoco[0] = 600;
+            }
+        }
+
+}
+
 
 //MANUAL//
 void manual (){
@@ -460,56 +523,3 @@ void mostrarOpcion(int opcion) {
 //////////////////////////////////////////////////////////////////////////
 ///////////////////////////// EN DESARROLLO /////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-
-
-//PASIVAS DE ENEMIGOS
-void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, int &enemigoVida){
-    switch (idEnemigo){
-    case 1:
-        if (contRondas == 3){
-            enemigoVida += 150;
-            danoMin = 15;
-            danoMax = 45;
-            cout << "Stitchard ha activado su pasiva!" << endl;
-            system("pause");
-        } else if (contRondas == 4){
-            enemigoVida -= 150;
-            danoMin = 5;
-            danoMax = 15;
-            cout << "Se ha agotado la pasiva de Stitchard!" << endl;
-        }
-        break;
-    case 2:
-    default:
-        break;
-    }
-}
-
-//ELEGIR POCIONES
-void elegirPociones(int &cargasBoostAtaque, int &cargasBoostDefensa, int &cargasPocionVida){
-    int opcion;
-    system("cls");
-    cout << "======================================" << endl;
-    cout << "=========POCIONES DISPONIBLES=========" << endl;
-    cout << "======================================" << endl;
-    cout << "1) Pociones de Boost de ataque: " << cargasBoostAtaque << endl;
-    cout << "2) Pociones de Boost de defensa: " << cargasBoostDefensa << endl;
-    cout << "3) Pociones de Pociones de vida: " << cargasPocionVida << endl;
-    cout << "======================================" << endl;
-    cout << "Por favor, elija la pocion deseada: ";
-    cin >> opcion;
-    switch (opcion){
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    default:
-        break;
-    }
-}
-
-void modoVersus (){}
-void godMode(){}
-void estadisticas(){}

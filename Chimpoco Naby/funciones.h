@@ -6,7 +6,6 @@ using namespace std;
 void menuPrincipal ();
 void mostrarMenu ();
 void menuSeleccionPersonajes();
-int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 
 //SWITCH MENU//
 void modoAventura(string &nombreJugador);
@@ -27,13 +26,18 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 //TURNOS//
 void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
-void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, int &enemigoVida);
 
 //ACCIONES//
-int realizarAtaque(int danoMin, int danoMax);
-void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+int realizarAtaque(int chimpoco[], int danoMin, int danoMax);
 
 //MANUAL//
 void manual ();
 void menumanual ();
 void mostrarOpcion (int opcion);
+
+//POCIONES Y BOOST//
+void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda);
+int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+void boostataque (int chimpoco[]);
+void boostdefenza (int chimpoco[], int enemigo[], int contRonda);
+void pocionvida (int chimpoco[]);
