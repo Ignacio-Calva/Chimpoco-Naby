@@ -25,8 +25,8 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
 
 //TURNOS//
-void turnoJugador(int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
-void turnoEnemigo (int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void pasivasEnemigos(int contRondas, int idEnemigo, int &danoMin, int &danoMax, int &enemigoVida);
 
 //ACCIONES//

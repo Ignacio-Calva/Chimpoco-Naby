@@ -231,7 +231,7 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
         cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
         cout << "========================================" << endl;
 
-        turnoJugador(ronda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        turnoJugador(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (enemigo[0] <= 0) {
             cout << "Has ganado! " << nombreEnemigo << " ha sido derrotado!" << endl;
@@ -239,21 +239,28 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
             break;
         }
 
-        turnoEnemigo(ronda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        cout << "RONDA; " << contRonda;
+        system("pause");
+
+        turnoEnemigo(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (chimpoco[0] <= 0) {
             cout << "Has sido derrotado! " << nombreEnemigo << " gana!" << endl;
             system("pause");
             break;
 
+        }
+
+        cout << "RONDA; " << contRonda;
+        system("pause");
     }
-}
 
 }
 
 //TURNO JUGADOR
-void turnoJugador(int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
+void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     ronda ++;
+    contRonda++;
     system("cls");
     cout << "========================================" << endl;
     cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
@@ -286,9 +293,8 @@ void turnoJugador(int &ronda, int chimpoco[], int enemigo[], string nombreChimpo
 }
 
 //TURNO ENEMIGO
-void turnoEnemigo (int &ronda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
-    int contRondas =0;
-    contRondas ++;
+void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
+    contRonda ++;
     ronda ++;
     system("cls");
 
@@ -343,7 +349,6 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
                 menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
                 eleccion = 0;
                 break;
-        }
     }
 }
 
