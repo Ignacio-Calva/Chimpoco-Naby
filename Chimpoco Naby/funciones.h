@@ -39,5 +39,5 @@ void mostrarOpcion (int opcion);
 void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda);
 int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void boostataque (int chimpoco[]);
-void boostdefenza (int chimpoco[], int enemigo[], int contRonda);
+void boostdefensa (int chimpoco[], int enemigo[], int contRonda);
 void pocionvida (int chimpoco[]);

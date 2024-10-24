@@ -331,44 +331,46 @@ int realizarAtaque(int chimpoco[], int danoMin, int danoMax){
 
 //POCIONES//
 void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda) {
-    int eleccion = 0;
-    int opcion = menuitems(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-    switch (opcion) {
-        case 1:  // Boost de ataque
-            if (chimpoco [4] > 0) {
-                boostataque(chimpoco);
-            } else {
+    int opcion;
+    while (true) {
+        opcion = menuitems(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        switch (opcion) {
+            case 1:  // Boost de ataque
+                if (chimpoco[4] > 0) {
+                    boostataque(chimpoco);
+                    return;
+                } else {
+                    system("cls");
+                    cout << "No tienes suficientes boosts de ataque. Reintenta con otro." << endl;
+                    system("pause");
+                } break;
+            case 2:  // Boost de defensa
+                if (chimpoco[6] > 0) {
+                    boostdefensa(chimpoco, enemigo, contRonda);
+                    return;
+                } else {
+                    system("cls");
+                    cout << "No tienes suficientes boosts de defensa. Reintenta con otro." << endl;
+                    system("pause");
+                } break;
+            case 3:  // Poción de vida
+                if (chimpoco[8] > 0) {
+                    pocionvida(chimpoco);
+                    return;
+                } else {
+                    system("cls");
+                    cout << "No tienes suficientes pociones de vida. Reintenta con otro." << endl;
+                    system("pause");
+                } break;
+            default:
+                cout << "Opcion invalida. Reintenta con otra." << endl;
+                system("pause");
                 system("cls");
-                cout << "No tienes items suficientes, reintente con otro" << endl;
-                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-                eleccion = 0;}
-            break;
-        case 2: //Boost de defenza
-            if (chimpoco [6] > 0) {
-                boostdefenza(chimpoco, enemigo, contRonda);
-            } else {
-                system("cls");
-                cout << "No tienes items suficientes, reintente con otro" << endl;
-                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-                eleccion = 0;}
-            break;
-        case 3: //Poti de vida
-           if (chimpoco [8] > 0) {
-                pocionvida(chimpoco);
-            } else {
-                system("cls");
-                cout << "No tienes items suficientes, reintente con otro" << endl;
-                menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-                eleccion = 0;}
-            break;
-        default:
-            system("cls");
-            cout << "No tienes items suficientes, reintente con otro" << endl;
-            menuitems (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-            eleccion = 0;
-            break;
+                break;
+        }
     }
 }
+
 
 //MENU ITEMS
 int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
@@ -391,20 +393,21 @@ int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
 //BOOST ATAQUE
 void boostataque (int chimpoco[]){
     chimpoco [4]--;
-    chimpoco [5] = 2;
+    chimpoco [5] = chimpoco [5] + 2;
 }
 
 //BOOTS DEFENZA
-void boostdefenza (int chimpoco[], int enemigo[], int contRonda){
+void boostdefensa (int chimpoco[], int enemigo[], int contRonda){
     chimpoco [6]--;
-    if (enemigo [3] = 2 && contRonda == 4){
+    if (enemigo [3] == 2 && contRonda == 4){
         chimpoco [7] = chimpoco [7]++; }
     chimpoco [7] = 2;
 }
 
 //POTI DEFENZA
 void pocionvida (int chimpoco[]){
-switch (chimpoco[3]){
+    chimpoco [8]--;
+    switch (chimpoco[3]){
         case 1:
             chimpoco[0] = chimpoco [0] + 600;
             if (chimpoco [0] > 1200){
