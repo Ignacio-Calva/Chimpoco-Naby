@@ -30,6 +30,13 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
 //ACCIONES//
 int realizarAtaque(int chimpoco[], int danoMin, int danoMax);
 
+//PASIVAS//
+void pasivasrockito (int chimpoco[], int danoEnemigo);
+void pasivaspicante (int chimpoco[], int danoRealizado);
+void pasivafreddy (int chimpoco[], int enemigo[], string nombreEnemigo);
+void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo);
+void pasivasenemigos();
+
 //MANUAL//
 void manual ();
 void menumanual ();

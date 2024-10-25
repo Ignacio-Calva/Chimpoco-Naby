@@ -115,7 +115,7 @@ int seleccionPersonaje(){
 
 //MODO AVENTURA
 void modoAventura (string &nombreJugador){
-    int chimpoco [9], enemigo [5];
+    int chimpoco [10], enemigo [5];
     string nombreChimpoco;
     string nombreEnemigo;
     int eleccion = seleccionPersonaje();
@@ -136,9 +136,10 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             /* TIPO DE CHIMPOCO */chimpoco [3] = eleccion;
             /* BOOST DE ATAQUE */ chimpoco [4] = 3;
             /* TURNOS BOOST DE ATAQUE */ chimpoco [5] = 0;
-            /* BOOST DE DEFENZA */ chimpoco [6] = 3;
-            /* TURNOS BOOST DE DEFENZA */ chimpoco [7] = 0;
+            /* BOOST DE DEFENSA */ chimpoco [6] = 3;
+            /* TURNOS BOOST DE DEFENSA */ chimpoco [7] = 0;
             /* POCION DE VIDA */chimpoco [8] = 3;
+            /* VIDA MAXIMA */ chimpoco [9] = 1200;
             nombreChimpoco = "ROCKYTO" ;
             break;
         case 2: // Picante
@@ -151,6 +152,7 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [6] = 3;
             chimpoco [7] = 0;
             chimpoco [8] = 3;
+            chimpoco [9] = 500;
             nombreChimpoco = "PICANTE" ;
             break;
         case 3: // Freddy
@@ -163,6 +165,7 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [6] = 3;
             chimpoco [7] = 0;
             chimpoco [8] = 3;
+            chimpoco [9] = 700;
             nombreChimpoco = "FREDDY" ;
             break;
         case 4: // Rayin
@@ -175,6 +178,7 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [6] = 3;
             chimpoco [7] = 0;
             chimpoco [8] = 3;
+            chimpoco [9] = 600;
             nombreChimpoco = "RAYIN" ;
             break;
         default:
@@ -190,6 +194,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 5;
             enemigo[2] = 15;
             enemigo[3] = i;
+            enemigo[4] = 0;
             nombreEnemigo = "STITCHARD" ;
             break;
         case 2: // FurbyZhor
@@ -197,6 +202,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 25;
             enemigo[2] = 45;
             enemigo[3] = i;
+            enemigo[4] = 0;
             nombreEnemigo = "FURBYZHOR" ;
             break;
         case 3: // HelloCathy
@@ -204,6 +210,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 40;
             enemigo[2] = 55;
             enemigo[3] = i;
+            enemigo[4] = 0;
             nombreEnemigo = "HELLOCATHY" ;
             break;
         case 4: // BabyYorda
@@ -211,6 +218,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 55;
             enemigo[2] = 75;
             enemigo[3] = i;
+            enemigo[4] = 0;
             nombreEnemigo = "BABYYORDA" ;
             break;
         case 5: // TioMickey
@@ -218,6 +226,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 25;
             enemigo[2] = 150;
             enemigo[3] = i;
+            enemigo[4] = 0;
             nombreEnemigo = "TIOMICKEY" ;
             break;
         default:
@@ -247,17 +256,18 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
             break;
         }
 
-        turnoEnemigo(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        pasivafreddy  (chimpoco, enemigo, nombreEnemigo); // ACTIVA SU PASIVA INDEPENDIENTEMENTE DE SI ATACA O DEFIENDE
+
+        if (enemigo[4] == 0){
+            turnoEnemigo(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        } else {enemigo [4]-1;}
 
         if (chimpoco[0] <= 0) {
             cout << "Has sido derrotado! " << nombreEnemigo << " gana!" << endl;
             system("pause");
             break;
-
         }
-
     }
-
 }
 
 //TURNO JUGADOR
@@ -286,9 +296,11 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
     int danoMax = chimpoco[2];
 
     if (opcion == 1) {
-        int dano = realizarAtaque (chimpoco, danoMin, danoMax);
-        enemigo [0] -= dano;
-        cout << nombreChimpoco << " ha infringido " << dano << " de dano a " << nombreEnemigo << endl;
+        int danoRealizado = realizarAtaque (chimpoco, danoMin, danoMax);
+        pasivaspicante (chimpoco, danoRealizado);
+        enemigo [0] -= danoRealizado;
+        cout << nombreChimpoco << " ha infringido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
+        pasivarayin (chimpoco, enemigo, nombreEnemigo); //ACTIVA SU PASIVA SOLO AL ATACAR
            system ("pause");
     } else if (opcion == 2){
         usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
@@ -310,8 +322,10 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
 
     int danoMin = enemigo[1];
     int danoMax = enemigo[2];
-
     int danoEnemigo = realizarAtaque(chimpoco, danoMin, danoMax);
+
+    pasivasrockito (chimpoco, danoEnemigo);
+
     chimpoco [0] -= danoEnemigo;
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl;
     system("pause");
@@ -323,11 +337,53 @@ int realizarAtaque(int chimpoco[], int danoMin, int danoMax){
     diferenciaDano = danoMax - danoMin + 1;
     danoRealizado = danoMin + (rand() % diferenciaDano);
 
-    if (chimpoco [5] > 0){
-    danoRealizado += danoRealizado * 0.30; }
+    //BOOST DE ATAQUE
+    if (chimpoco [5] > 0){ //SI HAY TURNOS CON EL BOOST ACTIVADO, SE AGREGA EL 30%
+    danoRealizado += danoRealizado * 0.30;
+    chimpoco [5]--; }
 
     return danoRealizado;
 }
+
+//PASIVAS CHIMPOCO
+void pasivasrockito (int chimpoco[], int danoEnemigo){
+    if (chimpoco [3] == 1){
+        danoEnemigo = danoEnemigo-danoEnemigo*0.15;
+    }
+}
+
+void pasivaspicante (int chimpoco[], int danoRealizado){
+    if (chimpoco[3] == 2) {
+        int chance = rand() % 100;
+        if (chance < 15) {
+            danoRealizado *= 2;
+        cout << "Golpe critico!" << endl;
+        }
+    }
+}
+
+void pasivafreddy (int chimpoco[], int enemigo[], string nombreEnemigo){
+    if (chimpoco[3] == 3) {
+        int chance = rand() % 100;
+        if (chance < 15) {
+            enemigo[4] += 2;
+            cout << nombreEnemigo << " ha sido congelado!" << endl;
+        }
+    }
+}
+
+void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo){
+    if (chimpoco[3] == 4) {
+        int chance = rand() % 100;
+        if (chance < 25) {
+            cout << nombreEnemigo << " ha sido paralizado!" << endl;
+        }
+    }
+}
+
+//PASIVAS ENEMIGO
+
+//////////////////////////////// POCIONES ////////////////////////////////
 
 //POCIONES//
 void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda) {
@@ -371,7 +427,6 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
     }
 }
 
-
 //MENU ITEMS
 int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     int opcion ;
@@ -396,7 +451,7 @@ void boostataque (int chimpoco[]){
     chimpoco [5] = chimpoco [5] + 2;
 }
 
-//BOOTS DEFENZA
+//BOOTS DEFENSA
 void boostdefensa (int chimpoco[], int enemigo[], int contRonda){
     chimpoco [6]--;
     if (enemigo [3] == 2 && contRonda == 4){
@@ -404,53 +459,32 @@ void boostdefensa (int chimpoco[], int enemigo[], int contRonda){
     chimpoco [7] = 2;
 }
 
-//POTI DEFENZA
+//POTI VIDA
 void pocionvida (int chimpoco[]){
     chimpoco [8]--;
-    switch (chimpoco[3]){
-        case 1:
-            chimpoco[0] = chimpoco [0] + 600;
-            if (chimpoco [0] > 1200){
-                chimpoco[0] = 1200;
-            }
-            break;
-        case 2:
-            chimpoco[0] = chimpoco [0] + 250;
-            if (chimpoco [0] > 500){
-                chimpoco[0] = 500;
-            }
-            break;
-        case 3:
-            chimpoco[0] = chimpoco [0] + 350;
-            if (chimpoco [0] > 700){
-                chimpoco[0] = 700;
-            }
-            break;
-        case 4:
-            chimpoco[0] = chimpoco [0] + 300;
-            if (chimpoco [0] > 600){
-                chimpoco[0] = 600;
-            }
-        }
-
+    chimpoco[0] = chimpoco [0] + (chimpoco [9]/2);
+    if (chimpoco [0] > chimpoco [9]){
+        chimpoco[0] = chimpoco [9] ;
+    }
 }
 
+///////////////////////////////// MANUAL /////////////////////////////////
 
-//MANUAL//
 void manual (){
    int opcion;
    while (true) {
         menumanual();
         cin >> opcion;
 
-        if (opcion < 6 && opcion > 0){
+        if (opcion < 6 && opcion > 0) {
             mostrarOpcion(opcion);
         } else if (opcion == 0) {
             cout << "Saliendo al menú... " << endl;
+            system("pause");
             break;
         } else {
-            cout << "Opcion invalida, ingrese una opcion correcta..." << endl ;
-            system ("pause");
+            cout << "Opcion invalida, por favor selecciona una opciOn correcta." << endl;
+            system("pause");
         }
    }
 }
@@ -474,14 +508,18 @@ void mostrarOpcion(int opcion) {
     system ("cls");
     switch(opcion) {
         case 1:
-            cout << "Especificaciones del Juego: " << endl ;
+            cout << "=================================================" << endl;
+            cout << "          ESPECIFICACIONES DEL JUEGO:            " << endl ;
+            cout << "=================================================" << endl;
             cout << "Titulo: ChimpocoFight " << endl ;
             cout << "Categoria: Juego en consola " << endl ;
             cout << "Plataforma: Code::Blocks " << endl ;
             cout << "Jugadores: 1 o 2 " << endl ;
             cout << "Genero: Pelea por turnos " << endl ;
             cout << endl ;
-            cout << "Descripcion: " << endl ;
+            cout << "=================================================" << endl;
+            cout << "                 DESCRIPCION:                    " << endl ;
+            cout << "=================================================" << endl;
             cout << "ChimpocoFight es un juego de pelea por turnos que combina estrategia y azar. " << endl ;
             cout << "Los jugadores eligen un Chimpoco para enfrentarse a una serie de oponentes, " << endl ;
             cout << "donde deberan demostrar sus habilidades y superar desafios para alcanzar " << endl;
@@ -489,7 +527,9 @@ void mostrarOpcion(int opcion) {
             system ("pause");
             break;
         case 2:
-            cout << "Detalle de las Opciones del Menu: " << endl;
+            cout << "=================================================" << endl;
+            cout << "        DETALLE DE LAS OPCIONES DEL MENU :       " << endl;
+            cout << "=================================================" << endl;
             cout << "1. Aventura: Inicia la historia principal. " << endl;
             cout << "2. Versus: Combate entre dos jugadores. " << endl;
             cout << "3. God Mode: Juega con ventajas ilimitadas. " << endl;
@@ -498,22 +538,29 @@ void mostrarOpcion(int opcion) {
             system ("pause");
             break;
         case 3:
-            cout << "Funcionamiento de los Combates: " << endl;
+            cout << "=================================================" << endl;
+            cout << "        FUNCIONAMIENTO DE LOS COMBATES:          " << endl;
+            cout << "=================================================" << endl;
             cout << "- Cada combate se realiza por turnos. " << endl;
             cout << "- Elige entre atacar o usar pociones. " << endl;
             cout << "- La victoria se obtiene al reducir la vida del enemigo a 0. " << endl;
             system ("pause");
             break;
         case 4:
-            cout << "Uso de Pociones: " << endl;
+            cout << "=================================================" << endl;
+            cout << "                 USO DE POCIONES :               " << endl;
+            cout << "=================================================" << endl;
             cout << "- Boost de ataque: Incrementa tu dano por 30%. " << endl;
             cout << "- Boost de defensa: Reduce el dano recibido un 20%. " << endl;
             cout << "- Pocion de vida: Recupera el 50% de tu vida total. " << endl;
             system ("pause");
             break;
         case 5:
-            cout << "Creditos de los Desarrolladores: " << endl;
-            cout << "- Desarrollador : Juana Abril Trinidad " << endl;
+            cout << "=================================================" << endl;
+            cout << "                  DESARROLADORES:                " << endl;
+            cout << "=================================================" << endl;
+            cout << "    DESARROLLADORA ;   ABRIL JUANA TRINIDAD      " << endl;
+            cout << "=================================================" << endl;
             system ("pause");
             break;
         default:
@@ -522,7 +569,4 @@ void mostrarOpcion(int opcion) {
     }
 }
 
-
-//////////////////////////////////////////////////////////////////////////
 ///////////////////////////// EN DESARROLLO /////////////////////////////
-//////////////////////////////////////////////////////////////////////////
