@@ -241,16 +241,10 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 
     while (true) {
         system("cls");
-        cout << "========================================" << endl;
-        cout << "         BATALLA INICIADA              " << endl;
-        cout << "========================================" << endl;
-        cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
-        cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
-        cout << "========================================" << endl;
-
         turnoJugador(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (enemigo[0] <= 0) {
+            system("cls");
             cout << "Has ganado! " << nombreEnemigo << " ha sido derrotado!" << endl;
             system("pause");
             break;
@@ -297,11 +291,21 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
 
     if (opcion == 1) {
         int danoRealizado = realizarAtaque (chimpoco, danoMin, danoMax);
+
+        /// BOOST DE ATAQUE
+        {
+            if (chimpoco [5] > 0){ //SI HAY TURNOS CON EL BOOST ACTIVADO, SE AGREGA EL 30%
+            danoRealizado += danoRealizado * 0.30;
+            chimpoco [5]--;
+            cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
+            }
+        }
+
         pasivaspicante (chimpoco, danoRealizado);
         enemigo [0] -= danoRealizado;
-        cout << nombreChimpoco << " ha infringido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
+        cout << nombreChimpoco << " ha infligido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
         pasivarayin (chimpoco, enemigo, nombreEnemigo); //ACTIVA SU PASIVA SOLO AL ATACAR
-           system ("pause");
+        system ("pause");
     } else if (opcion == 2){
         usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
     }
@@ -324,6 +328,15 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
     int danoMax = enemigo[2];
     int danoEnemigo = realizarAtaque(chimpoco, danoMin, danoMax);
 
+    /// BOOST DE DEFENSA
+    {
+        if (chimpoco[7] > 0){
+            danoEnemigo -= danoEnemigo* 0.20;
+            chimpoco[7]--;
+            cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[7] << endl;
+        }
+    }
+
     pasivasrockito (chimpoco, danoEnemigo);
 
     chimpoco [0] -= danoEnemigo;
@@ -336,12 +349,6 @@ int realizarAtaque(int chimpoco[], int danoMin, int danoMax){
     int danoRealizado, diferenciaDano;
     diferenciaDano = danoMax - danoMin + 1;
     danoRealizado = danoMin + (rand() % diferenciaDano);
-
-    //BOOST DE ATAQUE
-    if (chimpoco [5] > 0){ //SI HAY TURNOS CON EL BOOST ACTIVADO, SE AGREGA EL 30%
-    danoRealizado += danoRealizado * 0.30;
-    chimpoco [5]--; }
-
     return danoRealizado;
 }
 
@@ -454,8 +461,7 @@ void boostataque (int chimpoco[]){
 //BOOTS DEFENSA
 void boostdefensa (int chimpoco[], int enemigo[], int contRonda){
     chimpoco [6]--;
-    if (enemigo [3] == 2 && contRonda == 4){
-        chimpoco [7] = chimpoco [7]++; }
+    if (enemigo [3] == 2 && contRonda == 4){chimpoco [7] = chimpoco [7]++; }
     chimpoco [7] = 2;
 }
 
