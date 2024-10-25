@@ -570,3 +570,33 @@ void mostrarOpcion(int opcion) {
 }
 
 ///////////////////////////// EN DESARROLLO /////////////////////////////
+
+// PASIVA DE STITCHARD
+void pasivaStitchard(int enemigo[], int turno) {
+    if (turno == 3) {
+        enemigo[0] += 150;  // Aumenta la vida en 150
+        enemigo[1] = 45;  // Aumenta el daño a 45
+        enemigo[2] = 45;  // Establece el daño mínimo y máximo en 45
+        cout << "Stitchard entra en furia! Su vida aumenta y su daño incrementa." << endl;
+    }
+}
+
+// PASIVA DE FURBYZHOR
+void pasivaFurbyZhor(int turno, int chimpoco[], string nombreChimpoco) {
+    if (turno % 4 == 0) {
+        cout << "FurbyZhor canta una canción hipnótica, " << nombreChimpoco << " pierde su próximo turno!" << endl;
+        chimpoco[4] = 1;  // Impide el turno del chimpoco
+        system("pause");
+    }
+}
+
+// PASIVA DE HELLOCATHY
+void pasivaHelloCathy(int turno, int &danoRecibido) {
+    if (turno % 2 == 0) {
+        cout << "HelloCathy reduce el daño recibido en un 30%!" << endl;
+        danoRecibido *= 0.7;
+    } else {
+        cout << "HelloCathy recibe un 15% más de daño!" << endl;
+        danoRecibido *= 1.15;
+    }
+}
