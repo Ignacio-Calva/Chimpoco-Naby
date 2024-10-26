@@ -349,7 +349,7 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 
         if (enemigo[4] == 0){
             turnoEnemigo(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-        } else {enemigo [4]-1;}
+        } else {enemigo [4] = enemigo[4]-1;}
 
         if (chimpoco[0] <= 0) {
             system ("cls");

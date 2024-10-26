@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1725561188 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\main.cpp
+1729981469 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\main.cpp
 	<iostream>
 	<cstring>
+	<windows.h>
 	"funciones.h"
 
-1729814877 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
+1729981469 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
 	<cstring>
 
 1729816356 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.cpp
