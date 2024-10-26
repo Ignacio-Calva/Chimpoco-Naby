@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <windows.h>
 #include "funciones.h"
 using namespace std;
 

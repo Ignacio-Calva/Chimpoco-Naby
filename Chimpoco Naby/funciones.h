@@ -6,9 +6,10 @@ using namespace std;
 void menuPrincipal ();
 void mostrarMenu ();
 void menuSeleccionPersonajes();
+void cambioderonda (int i);
 
 //SWITCH MENU//
-void modoAventura(string &nombreJugador);
+void modoAventura();
 void modoVersus ();
 void godMode();
 void estadisticas();

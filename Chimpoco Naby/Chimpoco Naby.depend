@@ -44,18 +44,20 @@
 	<conio.h>
 	"funciones.h"
 
-1729442079 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\main.cpp
+1729975327 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\main.cpp
 	<iostream>
 	<cstring>
+	<windows.h>
 	"funciones.h"
 
-1729814310 d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\funciones.h
+1729979257 d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\funciones.h
 	<cstring>
 
-1729724880 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\funciones.cpp
+1729980231 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\funciones.cpp
 	<iostream>
 	<cstring>
 	<time.h>
 	<conio.h>
+	<windows.h>
 	"funciones.h"
 

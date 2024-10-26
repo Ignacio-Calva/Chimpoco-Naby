@@ -2,38 +2,48 @@
 #include <cstring>
 #include <time.h>
 #include <conio.h>
+#include <windows.h>
 #include "funciones.h"
 using namespace std;
 
-//MENU PRINCIPAL
+/// CAMBIAR DE COLOR
+void colorsito (int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+/// MENU PRINCIPAL
 void menuPrincipal (){
     srand(time(NULL));
-    string nombreJugador;
     int opcion = 1;
     while (opcion !=0){
         mostrarMenu();
         cin>>opcion;
         switch (opcion) {
         case 1:
-            modoAventura (nombreJugador);
+            modoAventura ();
             break;
-//        case 2:
-//            modoVersus ();
-//            break;
-//        case 3:
-//            godMode ();
-//            break;
-//        case 4:
-//            estadisticas ();
-//            break;
+        case 2: ///FALTA
+            modoVersus ();
+            break;
+        case 3: ///FALTA
+            godMode ();
+            break;
+        case 4: ///FALTA
+            estadisticas ();
+            break;
         case 5:
               manual ();
               break;
         case 0:
+            colorsito (4);
             cout<<"Saliendo del programa..."<<endl;
+            colorsito (7);
             break;
         default:
+            colorsito (4);
             cout<<"Ingrese una opcion correcta."<<endl;
+            colorsito (7);
             system ("pause");
             break;
 
@@ -44,16 +54,22 @@ void menuPrincipal (){
 //MOSTRAR MENU
 void mostrarMenu (){
     system("cls");
+    colorsito (5);
     cout<<"================================================="<<endl;
+    colorsito (10);
     cout<<"                 CHIMPOCO FIGHT                  "<<endl;
+    colorsito (5);
     cout<<"================================================="<<endl;
+    colorsito (10);
     cout<<"1. Aventura                                      "<<endl;
     cout<<"2. Versus                                        "<<endl;
     cout<<"3. God Mode                                      "<<endl;
     cout<<"4. Estadisticas                                  "<<endl;
     cout<<"5. Manual                                        "<<endl;
     cout<<"0. Salir                                         "<<endl;
+    colorsito (5);
     cout<<"================================================="<<endl;
+    colorsito (10);
     cout<<"Ingrese la opcion deseada: ";
 }
 
@@ -67,39 +83,32 @@ string cargarNombre(){
     return nombreIngresado;
 }
 
-//MENU SELECCION PERSONAJE
-void menuSeleccionPersonajes(){
-    system("cls");
-    cout << "========================================" << endl;
-    cout << "           LISTA DE PERSONAJES          " << endl;
-    cout << "========================================" << endl;
-    cout << "(1) ROCKITO" << endl;
-    cout << "(2) PICANTE" << endl;
-    cout << "(3) FREDDY" << endl;
-    cout << "(4) RAYIN" << endl;
-    cout << "========================================" << endl;
-}
-
 //SELECCION PERSONAJE
 int seleccionPersonaje(){
     menuSeleccionPersonajes();
-    int eleccion=0;
+    int eleccion = 0;
     while (eleccion == 0){
-        cout << "Ingrese el personaje deseado: ";
         cin >> eleccion;
-
         switch (eleccion){
         case 1:
+            colorsito (6);
             cout << "El personaje seleccionado es ROCKITO" << endl;
+            colorsito (7);
             break;
         case 2:
+            colorsito (4);
             cout << "El personaje seleccionado es PICANTE" << endl;
+            colorsito (7);
             break;
         case 3:
+            colorsito (9);
             cout << "El personaje seleccionado es FREDDY" << endl;
+            colorsito (7);
             break;
         case 4:
+            colorsito (14);
             cout << "El personaje seleccionado es RAYIN" << endl;
+            colorsito (7);
             break;
         default:
             system("cls");
@@ -113,8 +122,31 @@ int seleccionPersonaje(){
     return eleccion;
 }
 
+//MENU SELECCION PERSONAJE
+void menuSeleccionPersonajes(){
+    system("cls");
+    colorsito (5);
+    cout << "========================================" << endl;
+    colorsito (10);
+    cout << "           LISTA DE PERSONAJES          " << endl;
+    colorsito (5);
+    cout << "========================================" << endl;
+    colorsito (6);
+    cout << "(1) ROCKITO" << endl;
+    colorsito (4);
+    cout << "(2) PICANTE" << endl;
+    colorsito (9);
+    cout << "(3) FREDDY" << endl;
+    colorsito (14);
+    cout << "(4) RAYIN" << endl;
+    colorsito (5);
+    cout << "========================================" << endl;
+    colorsito (10);
+    cout << "Ingrese el personaje deseado: ";
+}
+
 //MODO AVENTURA
-void modoAventura (string &nombreJugador){
+void modoAventura (){
     int chimpoco [10], enemigo [5];
     string nombreChimpoco;
     string nombreEnemigo;
@@ -123,6 +155,61 @@ void modoAventura (string &nombreJugador){
         inicializarChimpoco (eleccion, chimpoco, nombreChimpoco);
         inicializarEnemigo (i, enemigo, nombreEnemigo);
         batalla (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        cambioderonda(i);
+    }
+
+}
+
+// COUTS DE CAMBIO DE RONDA
+void cambioderonda(int i){
+    system("cls");
+    if (i<6){
+    switch (i){
+        case 1 :
+            colorsito(10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Cambiaste de Ronda!        *" << endl;
+            cout << "*         Tu proximo rival es:        *" << endl;
+            cout << "*              FurbyZhor              *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            system("pause");
+            break;
+        case 2 :
+            colorsito(10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Cambiaste de Ronda!        *" << endl;
+            cout << "*         Tu proximo rival es:        *" << endl;
+            cout << "*              HelloCathy             *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            system("pause");
+            break;
+        case 3 :
+            colorsito(10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Cambiaste de Ronda!        *" << endl;
+            cout << "*         Tu proximo rival es:        *" << endl;
+            cout << "*              BabyYorda              *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            system("pause");
+            break;
+        case 4 :
+            colorsito(10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Cambiaste de Ronda!        *" << endl;
+            cout << "*         Tu proximo rival es:        *" << endl;
+            cout << "*              TioMickey              *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            system("pause");
+            break;
+        }
     }
 }
 
@@ -241,11 +328,19 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 
     while (true) {
         system("cls");
+
         turnoJugador(ronda, contRonda, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (enemigo[0] <= 0) {
             system("cls");
-            cout << "Has ganado! " << nombreEnemigo << " ha sido derrotado!" << endl;
+            colorsito (10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Felicidades!               *" << endl;
+            cout << "*     "<< nombreEnemigo <<" HA SIDO DERROTADO !   *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            colorsito(10); // VERDE
             system("pause");
             break;
         }
@@ -257,7 +352,15 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
         } else {enemigo [4]-1;}
 
         if (chimpoco[0] <= 0) {
-            cout << "Has sido derrotado! " << nombreEnemigo << " gana!" << endl;
+            system ("cls");
+            colorsito(12); // ROJO FUERTE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Lo Siento!                 *" << endl;
+            cout << "*      Has Perdido el Juego...        *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            colorsito (10);
             system("pause");
             break;
         }
@@ -265,49 +368,61 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 }
 
 //TURNO JUGADOR
-void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
-    ronda ++;
+void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo) {
+    ronda++;
     contRonda++;
-    system("cls");
-    cout << "========================================" << endl;
-    cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
-    cout << "========================================" << endl;
-    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
-    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
-    cout << "========================================" << endl;
-    cout << "1. Atacar " << endl;
-    cout << "2. Usar item " << endl;
-    cout << "Elige tu accion: ";
-    int opcion;
-    cin >> opcion;
-    while (opcion != 1 && opcion != 2){
-        cout << "Opcion invalida." << endl;
+
+    while (true) {
+        system("cls");
+        colorsito(5);
+        cout << "========================================" << endl;
+        colorsito(10);
+        cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+        colorsito(5);
+        cout << "========================================" << endl;
+        colorsito(10);
+        cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
+        cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+        colorsito(5);
+        cout << "========================================" << endl;
+        colorsito(4);
+        cout << "1. Atacar " << endl;
+        colorsito(11);
+        cout << "2. Usar item " << endl;
+        colorsito(10);
         cout << "Elige tu accion: ";
+
+        int opcion;
         cin >> opcion;
-    }
 
-    int danoMin = chimpoco[1];
-    int danoMax = chimpoco[2];
+        if (opcion == 1) {
+            int danoMin = chimpoco[1], danoMax = chimpoco[2];
+            int danoRealizado = realizarAtaque(chimpoco, danoMin, danoMax);
 
-    if (opcion == 1) {
-        int danoRealizado = realizarAtaque (chimpoco, danoMin, danoMax);
-
-        /// BOOST DE ATAQUE
-        {
-            if (chimpoco [5] > 0){ //SI HAY TURNOS CON EL BOOST ACTIVADO, SE AGREGA EL 30%
-            danoRealizado += danoRealizado * 0.30;
-            chimpoco [5]--;
-            cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
+            if (chimpoco[5] > 0) { // Si hay turnos con el boost activado, se agrega el 30%
+                danoRealizado += danoRealizado * 0.30;
+                chimpoco[5]--;
+                cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
             }
-        }
+            pasivaspicante(chimpoco, danoRealizado);
+            enemigo[0] -= danoRealizado;
+            colorsito (4);
+            cout << nombreChimpoco << " ha infligido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
+            colorsito (10);
+            pasivarayin(chimpoco, enemigo, nombreEnemigo);
+            system("pause");
+            break;
 
-        pasivaspicante (chimpoco, danoRealizado);
-        enemigo [0] -= danoRealizado;
-        cout << nombreChimpoco << " ha infligido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
-        pasivarayin (chimpoco, enemigo, nombreEnemigo); //ACTIVA SU PASIVA SOLO AL ATACAR
-        system ("pause");
-    } else if (opcion == 2){
-        usaritem (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
+        } else if (opcion == 2) {
+            usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
+            break;
+
+        } else {
+            colorsito(4);
+            cout << "Opcion invalida." << endl;
+            colorsito(7);
+            system ("pause");
+        }
     }
 }
 
@@ -317,30 +432,37 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
     ronda ++;
     system("cls");
 
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito(10);
     cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito(10);
     cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
     cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito(10);
 
     int danoMin = enemigo[1];
     int danoMax = enemigo[2];
     int danoEnemigo = realizarAtaque(chimpoco, danoMin, danoMax);
 
     /// BOOST DE DEFENSA
-    {
-        if (chimpoco[7] > 0){
-            danoEnemigo -= danoEnemigo* 0.20;
-            chimpoco[7]--;
-            cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[7] << endl;
-        }
+
+    if (chimpoco[7] > 0){
+        danoEnemigo -= danoEnemigo* 0.20;
+        chimpoco[7]--;
+        cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[7] << endl;
     }
 
     pasivasrockito (chimpoco, danoEnemigo);
 
     chimpoco [0] -= danoEnemigo;
+    colorsito (4);
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl;
+    colorsito (10);
     system("pause");
 }
 
@@ -352,7 +474,7 @@ int realizarAtaque(int chimpoco[], int danoMin, int danoMax){
     return danoRealizado;
 }
 
-//PASIVAS CHIMPOCO
+/// PASIVAS CHIMPOCO
 void pasivasrockito (int chimpoco[], int danoEnemigo){
     if (chimpoco [3] == 1){
         danoEnemigo = danoEnemigo-danoEnemigo*0.15;
@@ -364,7 +486,9 @@ void pasivaspicante (int chimpoco[], int danoRealizado){
         int chance = rand() % 100;
         if (chance < 15) {
             danoRealizado *= 2;
-        cout << "Golpe critico!" << endl;
+            colorsito (4);
+            cout << "GOLPE CRITICO!" << endl;
+            colorsito (10);
         }
     }
 }
@@ -375,6 +499,7 @@ void pasivafreddy (int chimpoco[], int enemigo[], string nombreEnemigo){
         if (chance < 15) {
             enemigo[4] += 2;
             cout << nombreEnemigo << " ha sido congelado!" << endl;
+            system ("pause");
         }
     }
 }
@@ -383,6 +508,7 @@ void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo){
     if (chimpoco[3] == 4) {
         int chance = rand() % 100;
         if (chance < 25) {
+            enemigo[4] += 1;
             cout << nombreEnemigo << " ha sido paralizado!" << endl;
         }
     }
@@ -438,15 +564,22 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
 int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo){
     int opcion ;
     system("cls");
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito(10);
     cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito(10);
     cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
     cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    colorsito(5);
     cout << "========================================" << endl;
+    colorsito (9);
     cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << endl;
     cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< endl;
     cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << endl;
+    colorsito (10);
     cout << "Elige tu accion: ";
     cin >> opcion;
     return opcion;
@@ -461,7 +594,6 @@ void boostataque (int chimpoco[]){
 //BOOTS DEFENSA
 void boostdefensa (int chimpoco[], int enemigo[], int contRonda){
     chimpoco [6]--;
-    if (enemigo [3] == 2 && contRonda == 4){chimpoco [7] = chimpoco [7]++; }
     chimpoco [7] = 2;
 }
 
@@ -474,7 +606,7 @@ void pocionvida (int chimpoco[]){
     }
 }
 
-///////////////////////////////// MANUAL /////////////////////////////////
+/// MANUAL ///
 
 void manual (){
    int opcion;
@@ -575,7 +707,9 @@ void mostrarOpcion(int opcion) {
     }
 }
 
-///////////////////////////// EN DESARROLLO /////////////////////////////
+/// ///////////// ///
+/// EN DESARROLLO ///
+/// ///////////// ///
 
 // PASIVA DE STITCHARD
 void pasivaStitchard(int enemigo[], int turno) {
@@ -606,3 +740,8 @@ void pasivaHelloCathy(int turno, int &danoRecibido) {
         danoRecibido *= 1.15;
     }
 }
+
+void modoVersus (){}
+void godMode(){}
+void estadisticas(){}
+
