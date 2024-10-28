@@ -147,7 +147,7 @@ void menuSeleccionPersonajes(){
 
 //MODO AVENTURA
 void modoAventura (){
-    int chimpoco [10], enemigo [5];
+    int chimpoco [10], enemigo [6];
     string nombreChimpoco;
     string nombreEnemigo;
     int eleccion = seleccionPersonaje();
@@ -281,7 +281,8 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[1] = 5;
             enemigo[2] = 15;
             enemigo[3] = i;
-            enemigo[4] = 0;
+            enemigo[4] = 0; //TURNOS SALTADOS
+            enemigo[5] = 150; //VIDA MAX
             nombreEnemigo = "STITCHARD" ;
             break;
         case 2: // FurbyZhor
@@ -290,6 +291,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 45;
             enemigo[3] = i;
             enemigo[4] = 0;
+            enemigo[5] = 300;
             nombreEnemigo = "FURBYZHOR" ;
             break;
         case 3: // HelloCathy
@@ -298,6 +300,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 55;
             enemigo[3] = i;
             enemigo[4] = 0;
+            enemigo [5] = 450;
             nombreEnemigo = "HELLOCATHY" ;
             break;
         case 4: // BabyYorda
@@ -306,6 +309,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 75;
             enemigo[3] = i;
             enemigo[4] = 0;
+            enemigo[5] = 700;
             nombreEnemigo = "BABYYORDA" ;
             break;
         case 5: // TioMickey
@@ -314,6 +318,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 150;
             enemigo[3] = i;
             enemigo[4] = 0;
+            enemigo[5] = 1500;
             nombreEnemigo = "TIOMICKEY" ;
             break;
         default:
@@ -380,9 +385,14 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
         cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
         colorsito(5);
         cout << "========================================" << endl;
+        colorsito(13);
+        cout << "         " << nombreChimpoco << " >> Vida: " << chimpoco[0] << "    " << endl; cout << "              ";
         colorsito(10);
-        cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
-        cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+        mostrarBarraVida(chimpoco);
+        colorsito(13);
+        cout << "         " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl; cout << "              ";
+        colorsito(10);
+        mostrarBarraVidaEnemigo(enemigo);
         colorsito(5);
         cout << "========================================" << endl;
         colorsito(4);
@@ -438,9 +448,14 @@ void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], st
     cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
     colorsito(5);
     cout << "========================================" << endl;
+    colorsito(13);
+    cout << "         " << nombreChimpoco << " >> Vida: " << chimpoco[0] << "    " << endl; cout << "              ";
     colorsito(10);
-    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
-    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    mostrarBarraVida(chimpoco);
+    colorsito(13);
+    cout << "         " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl; cout << "              ";
+    colorsito(10);
+    mostrarBarraVidaEnemigo(enemigo);
     colorsito(5);
     cout << "========================================" << endl;
     colorsito(10);
@@ -551,6 +566,8 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
                     cout << "No tienes suficientes pociones de vida. Reintenta con otro." << endl;
                     system("pause");
                 } break;
+            case 0:
+                return;
             default:
                 cout << "Opcion invalida. Reintenta con otra." << endl;
                 system("pause");
@@ -570,15 +587,25 @@ int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
     cout << "         " << nombreChimpoco << " vs " << nombreEnemigo << endl;
     colorsito(5);
     cout << "========================================" << endl;
+    colorsito(13);
+    cout << "         " << nombreChimpoco << " >> Vida: " << chimpoco[0] << "    " << endl; cout << "              ";
     colorsito(10);
-    cout << " " << nombreChimpoco << " >> Vida: " << chimpoco[0] << endl;
-    cout << " " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl;
+    mostrarBarraVida(chimpoco);
+    colorsito(13);
+    cout << "         " << nombreEnemigo << " >> Vida: " << enemigo[0] << endl; cout << "              ";
+    colorsito(10);
+    mostrarBarraVidaEnemigo(enemigo);
     colorsito(5);
-    cout << "========================================" << endl;
+    cout << "========================================" << endl<<endl;
+    cout << char(201) <<"================================================================================" << char(187) <<endl;
     colorsito (9);
-    cout << "1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << endl;
-    cout << "2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< endl;
-    cout << "3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << endl;
+    cout << char (186) << " 1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << "                  "<< char(186)<< endl;
+    cout << char (186) << " 2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< "             " << char(186) <<  endl;
+    cout << char (186) << " 3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << "             " <<char(186)<< endl;
+    colorsito(5);
+    cout << char (200) <<"================================================================================" << char(188) << endl << endl;
+    colorsito (7);
+    cout << "                0. Volver               " << endl << endl;
     colorsito (10);
     cout << "Elige tu accion: ";
     cin >> opcion;
@@ -745,3 +772,32 @@ void modoVersus (){}
 void godMode(){}
 void estadisticas(){}
 
+// MOSTRAR BARRA DE VIDA //
+
+void mostrarBarraVida(int chimpoco[]){
+    int porcentajeVida;
+    porcentajeVida = chimpoco[0]*100/chimpoco[9];
+    porcentajeVida = porcentajeVida/10;
+    cout << "[ " ;
+    for (int i = 0 ; i < porcentajeVida ; i++){
+        cout << char(254);
+    }
+    for (int i = 0 ; i < (10-porcentajeVida) ; i++){
+        cout << char(174);
+    }
+    cout << " ]" << endl;
+}
+
+void mostrarBarraVidaEnemigo(int enemigo[]){
+    int porcentajeVida;
+    porcentajeVida = enemigo[0]*100/enemigo[5];
+    porcentajeVida = porcentajeVida/10;
+    cout << "[ " ;
+    for (int i = 0 ; i < porcentajeVida ; i++){
+        cout << char(254);
+    }
+    for (int i = 0 ; i < (10-porcentajeVida) ; i++){
+        cout << char(174);
+    }
+    cout << " ]" << endl;
+}

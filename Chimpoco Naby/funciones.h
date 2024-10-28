@@ -7,6 +7,8 @@ void menuPrincipal ();
 void mostrarMenu ();
 void menuSeleccionPersonajes();
 void cambioderonda (int i);
+void mostrarBarraVida (int chimpoco[]);
+void mostrarBarraVidaEnemigo(int enemigo[]);
 
 //SWITCH MENU//
 void modoAventura();

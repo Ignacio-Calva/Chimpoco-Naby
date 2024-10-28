@@ -5,14 +5,15 @@
 	<windows.h>
 	"funciones.h"
 
-1729981469 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
+1730156831 c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.h
 	<cstring>
 
-1729816356 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.cpp
+1730157035 source:c:\users\ignacio\desktop\chimpoco-naby\chimpoco naby\funciones.cpp
 	<iostream>
 	<cstring>
 	<time.h>
 	<conio.h>
+	<windows.h>
 	"funciones.h"
 
 1726095711 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp
