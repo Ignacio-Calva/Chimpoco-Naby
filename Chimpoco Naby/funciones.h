@@ -50,7 +50,7 @@ void menumanual ();
 void mostrarOpcion (int opcion);
 
 //POCIONES Y BOOST//
-int usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda);
+int usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda); // LA USO COMO INT, PERO PODRIA USARLA COMO BOOL, YA QUE RETORNA UNA BANDER
 int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void boostataque (int chimpoco[]);
 void boostdefensa (int chimpoco[], int enemigo[], int contRonda);

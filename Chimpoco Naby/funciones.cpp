@@ -401,7 +401,6 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
         cout << "2. Usar item " << endl;
         colorsito(10);
         cout << "Elige tu accion: ";
-
         int opcion;
         cin >> opcion;
 
@@ -426,8 +425,7 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
         } else if (opcion == 2) {
             int resultado = usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
             if (resultado == 0) {
-                continue;
-            }
+            } else { break;}
 
         } else {
             colorsito(4);
@@ -531,7 +529,7 @@ void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo){
     }
 }
 
-//PASIVAS ENEMIGO
+///PASIVAS ENEMIGO
 
 //////////////////////////////// POCIONES ////////////////////////////////
 
@@ -568,8 +566,8 @@ int usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombre
                     cout << "No tienes suficientes pociones de vida. Reintenta con otro." << endl;
                     system("pause");
                 } break;
-            case 0:
-                return opcion ;
+            case 0: //VOLVER
+                return 0 ;
             default:
                 cout << "Opcion invalida. Reintenta con otra." << endl;
                 system("pause");
