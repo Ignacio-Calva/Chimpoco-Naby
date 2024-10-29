@@ -50,7 +50,7 @@ void menumanual ();
 void mostrarOpcion (int opcion);
 
 //POCIONES Y BOOST//
-void usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda);
+int usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda);
 int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void boostataque (int chimpoco[]);
 void boostdefensa (int chimpoco[], int enemigo[], int contRonda);

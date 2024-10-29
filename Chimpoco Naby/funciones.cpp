@@ -424,8 +424,10 @@ void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], str
             break;
 
         } else if (opcion == 2) {
-            usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
-            break;
+            int resultado = usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo, contRonda);
+            if (resultado == 0) {
+                continue;
+            }
 
         } else {
             colorsito(4);
@@ -534,7 +536,7 @@ void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo){
 //////////////////////////////// POCIONES ////////////////////////////////
 
 //POCIONES//
-void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda) {
+int usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda) {
     int opcion;
     while (true) {
         opcion = menuitems(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
@@ -542,7 +544,7 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
             case 1:  // Boost de ataque
                 if (chimpoco[4] > 0) {
                     boostataque(chimpoco);
-                    return;
+                    return 1;
                 } else {
                     system("cls");
                     cout << "No tienes suficientes boosts de ataque. Reintenta con otro." << endl;
@@ -551,7 +553,7 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
             case 2:  // Boost de defensa
                 if (chimpoco[6] > 0) {
                     boostdefensa(chimpoco, enemigo, contRonda);
-                    return;
+                    return 1;
                 } else {
                     system("cls");
                     cout << "No tienes suficientes boosts de defensa. Reintenta con otro." << endl;
@@ -560,14 +562,14 @@ void usaritem(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
             case 3:  // Poción de vida
                 if (chimpoco[8] > 0) {
                     pocionvida(chimpoco);
-                    return;
+                    return 1;
                 } else {
                     system("cls");
                     cout << "No tienes suficientes pociones de vida. Reintenta con otro." << endl;
                     system("pause");
                 } break;
             case 0:
-                return;
+                return opcion ;
             default:
                 cout << "Opcion invalida. Reintenta con otra." << endl;
                 system("pause");
@@ -598,11 +600,10 @@ int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
     colorsito(5);
     cout << "========================================" << endl<<endl;
     cout << char(201) <<"================================================================================" << char(187) <<endl;
-    colorsito (9);
-    cout << char (186) << " 1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << "                  "<< char(186)<< endl;
-    cout << char (186) << " 2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< "             " << char(186) <<  endl;
-    cout << char (186) << " 3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << "             " <<char(186)<< endl;
-    colorsito(5);
+    colorsito (5);
+    cout << char (186); colorsito(9); cout << " 1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << "                  " ; colorsito(5); cout << char(186) << endl;
+    cout << char (186); colorsito(9); cout << " 2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< "             " ; colorsito(5); cout << char(186) << endl;
+    cout << char (186); colorsito(9); cout << " 3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << "             " ; colorsito(5); cout << char(186) << endl;
     cout << char (200) <<"================================================================================" << char(188) << endl << endl;
     colorsito (7);
     cout << "                0. Volver               " << endl << endl;
