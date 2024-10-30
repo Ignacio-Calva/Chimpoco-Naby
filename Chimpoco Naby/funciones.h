@@ -29,7 +29,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
 
 //TURNOS//
-void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int rondaEnemigo);
+void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo);
 void turnoEnemigo(int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey);
 
 //ACCIONES//
@@ -45,8 +45,8 @@ void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo);
 void pasivaStitchard(int enemigo[], int rondaEnemigo);
 void pasivaFurbyZhor (int rondaEnemigo, int enemigo [], int chimpoco[], string nombreChimpoco);
 void pasivaHelloCathy(int rondaChimpoco, int &danoRecibido, int enemigo[]);
-void pasivaBabyYorda (int rondaEnemigo, int chimpoco[], int enemigo [], string nombreChimpoco, string nombreEnemigo);
-void pasivaTioMickey(int &danoRealizado, int enemigo[], int chimpoco[], int rondaEnemigo, bool &tiomickey);
+void pasivaBabyYorda (int &rondaEnemigo, int chimpoco[], int enemigo [], string nombreChimpoco, string nombreEnemigo);
+void pasivaTioMickey(int &danoRealizado, int enemigo[], int chimpoco[], int &rondaEnemigo, bool &tiomickey);
 
 //MANUAL//
 void manual ();
