@@ -9,6 +9,8 @@ void menuSeleccionPersonajes();
 void cambioderonda (int i);
 void mostrarBarraVida (int chimpoco[]);
 void mostrarBarraVidaEnemigo(int enemigo[]);
+void mostrarVida (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+void coutpasivas (int rondaEnemigo, int enemigo []);
 
 //SWITCH MENU//
 void modoAventura();
@@ -27,8 +29,8 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
 
 //TURNOS//
-void turnoJugador(int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
-void turnoEnemigo (int &ronda, int &contRonda, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
+void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int rondaEnemigo);
+void turnoEnemigo(int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey);
 
 //ACCIONES//
 int realizarAtaque(int chimpoco[], int danoMin, int danoMax);
@@ -40,9 +42,11 @@ void pasivafreddy (int chimpoco[], int enemigo[], string nombreEnemigo);
 void pasivarayin (int chimpoco [], int enemigo[], string nombreEnemigo);
 
 //PASIVAS ENEMIGOS//
-void pasivaStitchard(int enemigo[], int turno);
-void pasivaFurbyZhor(int turno, int chimpoco[], string nombreChimpoco);
-void pasivaHelloCathy(int turno, int &danoRecibido);
+void pasivaStitchard(int enemigo[], int rondaEnemigo);
+void pasivaFurbyZhor (int rondaEnemigo, int enemigo [], int chimpoco[], string nombreChimpoco);
+void pasivaHelloCathy(int rondaChimpoco, int &danoRecibido, int enemigo[]);
+void pasivaBabyYorda (int rondaEnemigo, int chimpoco[], int enemigo [], string nombreChimpoco, string nombreEnemigo);
+void pasivaTioMickey(int &danoRealizado, int enemigo[], int chimpoco[], int rondaEnemigo, bool &tiomickey);
 
 //MANUAL//
 void manual ();
@@ -50,8 +54,8 @@ void menumanual ();
 void mostrarOpcion (int opcion);
 
 //POCIONES Y BOOST//
-int usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int contRonda); // LA USO COMO INT, PERO PODRIA USARLA COMO BOOL, YA QUE RETORNA UNA BANDER
+int usaritem (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo); // LA USO COMO INT, PERO PODRIA USARLA COMO BOOL, YA QUE RETORNA UNA BANDER
 int menuitems(int chimpocos[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void boostataque (int chimpoco[]);
-void boostdefensa (int chimpoco[], int enemigo[], int contRonda);
+void boostdefensa (int chimpoco[], int enemigo[]);
 void pocionvida (int chimpoco[]);
