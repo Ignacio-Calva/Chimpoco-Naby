@@ -11,6 +11,7 @@ void mostrarBarraVida (int chimpoco[]);
 void mostrarBarraVidaEnemigo(int enemigo[]);
 void mostrarVida (int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo);
 void coutpasivas (int rondaEnemigo, int enemigo []);
+void coutFinal (string nombreChimpoco, string nombreEnemigo);
 
 //SWITCH MENU//
 void modoAventura();
@@ -24,6 +25,7 @@ string cargarNombre();
 int seleccionPersonaje();
 void inicializarChimpoco(int eleccion, int chimpoco[], string &nombreChimpoco);
 void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
+void inicializarPersonajes (int turno, int chimpocoUno[], int chimpocoDos[], string &nombreChimpocoUno, string &nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos);
 
 //BATALLAS//
 void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
@@ -34,6 +36,8 @@ void turnoEnemigo(int &rondaEnemigo, int chimpoco[], int enemigo[], string nombr
 
 //ACCIONES//
 int realizarAtaque(int chimpoco[], int danoMin, int danoMax);
+int dados (string nombreJugadorUno, string nombreJugadorDos);
+int tirarDado();
 
 //PASIVAS CHIMPOCO//
 void pasivasrockito (int chimpoco[], int danoEnemigo);
