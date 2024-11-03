@@ -124,7 +124,6 @@ int seleccionPersonaje(){
 
 // MENU SELECCION PERSONAJE
 void menuSeleccionPersonajes(){
-    system("cls");
     colorsito (5);
     cout << "========================================" << endl;
     colorsito (10);
@@ -169,9 +168,10 @@ void modoAventura (){
     string nombreJugador;
     cout << " Ingresa tu nombre: ";
     cin >> nombreJugador;
-    int chimpoco [11], enemigo [6];
+    int chimpoco [11], enemigo [10];
     string nombreChimpoco;
     string nombreEnemigo;
+    system("cls");
     int eleccion = seleccionPersonaje();
     for (int i = 1 ; i < 6 ; i++ ){
         inicializarChimpoco (eleccion, chimpoco, nombreChimpoco);
@@ -217,59 +217,202 @@ void modoVersus(){
     string nombreGanador = nombreJugadorUno; string nombrePerdedor = nombreJugadorDos;
     int turno =  dados (nombreJugadorUno, nombreJugadorDos);
     inicializarPersonajes (turno, chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, nombreJugadorUno, nombreJugadorDos);
+    batallaVersus (chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, nombreJugadorUno, nombreJugadorDos);
 }
 
+/// FUNCIONES MODO VERSUS // AGREGAR ESTO nombreJugadorUno, nombreJugadosDos); A LA BATLLA VERSUS XDXDXDXD
+
+void batallaVersus (int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUno, string nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos){
+    int rondaChimpocoUno, rondaChimpocoDos = 0; bool tiomickey = false;
+    while (true) {
+        system("cls");
+        if (chimpocoUno[10] == 0) { colorsito (5);
+            cout << "========================================" << endl; colorsito(12);
+            cout << "         ES EL TURNO DE " << nombreJugadorUno << endl; colorsito(5);
+            turnoJugadorVersus(rondaChimpocoUno, chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, tiomickey, rondaChimpocoDos);
+        } else { chimpocoUno[10] = 0; }
+
+        if (chimpocoDos[0] <= 0) {
+            mostrarGanador(nombreChimpocoUno);
+            break;}
+
+        pasivafreddy(chimpocoUno, chimpocoDos, nombreChimpocoDos);
+
+        if (chimpocoDos[10] == 0) { colorsito (5);
+            system("cls");
+            cout << "========================================" << endl; colorsito(9);
+            cout << "         ES EL TURNO DE " << nombreJugadorDos << endl; colorsito(5);
+            turnoJugadorVersus(rondaChimpocoDos, chimpocoDos, chimpocoUno, nombreChimpocoDos, nombreChimpocoUno, tiomickey, rondaChimpocoUno);
+        } else { chimpocoDos[10] = 0; }
+
+        if (chimpocoUno[0] <= 0) {
+            mostrarGanador(nombreChimpocoDos);
+            break;}
+        pasivafreddy(chimpocoDos, chimpocoUno, nombreChimpocoUno);
+    }
+}
+
+/// TURNO JUGADOR
+void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo) {
+    rondaChimpoco++;
+
+    while (true) {
+        mostrarVida(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+
+        colorsito(4);
+        cout << "1. Atacar " << endl;
+        colorsito(11);
+        cout << "2. Usar item " << endl;
+        colorsito(10);
+        cout << "Elige tu accion: ";
+
+        int opcion;
+        cin >> opcion;
+
+        if (opcion == 1) {
+            int danoMin = chimpoco[1], danoMax = chimpoco[2];
+            int danoRealizado = realizarAtaque(chimpoco, danoMin, danoMax);
+
+            // Aplicar boost de ataque si está activo
+            if (chimpoco[5] > 0) {
+                danoRealizado += danoRealizado * 0.30;
+                chimpoco[5]--;
+                colorsito(9);
+                cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
+            }
+
+            // Aplicar pasivas
+            pasivasChimpoco(chimpoco, danoRealizado, enemigo, nombreEnemigo);
+
+            enemigo[0] -= danoRealizado;
+            colorsito(4);
+            cout << nombreChimpoco << " ha infligido " << danoRealizado << " de dano a " << nombreEnemigo << endl;
+            colorsito(10);
+
+            system("pause");
+            break;
+        } else if (opcion == 2) {
+            int resultado = usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+            if (resultado != 0) {
+                break;
+            }
+        } else {
+            colorsito(4);
+            cout << "Opcion invalida." << endl;
+            colorsito(7);
+            system("pause");
+        }
+    }
+}
+
+// PASIVAS
+void pasivasChimpoco (int chimpoco[] , int danoRealizado, int enemigo[] , string nombreEnemigo){
+   pasivasrockito (chimpoco, danoRealizado);
+   pasivaspicante (chimpoco, danoRealizado);
+   pasivafreddy (chimpoco, enemigo, nombreEnemigo);
+   pasivarayin (chimpoco , enemigo, nombreEnemigo);
+}
+
+//COUT MOSTRAR GANADOR
+void mostrarGanador(string &nombreGanador) {
+    system("cls");
+    colorsito(10);
+    cout << "***************************************" << endl;
+    cout << "*                                     *" << endl;
+    cout << "*         !Felicidades!               *" << endl;
+    cout << "*     " << nombreGanador << " HA GANADO EL COMBATE!   *" << endl;
+    cout << "*                                     *" << endl;
+    cout << "***************************************" << endl;
+    colorsito(10);
+    system("pause");
+}
+
+// TIRAR DADO
+int tirarDado() {
+    return rand() % 6 + 1;
+}
+
+// DADOS
+int dados (string nombreJugadorUno, string nombreJugadorDos){
+    string ganador;
+    int dadosJ1, dadosJ2, turno;
+    do{
+        system ("cls"); colorsito (5);
+        cout << "================================================="<<endl; colorsito (10);
+        cout << " TIRA LOS DADOS EL JUGADOR " << nombreJugadorUno << endl; colorsito (5);
+        cout << "================================================="<<endl; colorsito (10);
+        dadosJ1 = tirarDado();
+        cout <<" SACO " << dadosJ1 << endl; colorsito (5);
+        cout << "================================================="<<endl; colorsito (10);
+        cout << " TIRA LOS DADOS EL JUGADOR " << nombreJugadorDos << endl; colorsito (5);
+        cout << "================================================="<<endl; colorsito (10);
+        dadosJ2 = tirarDado();
+        cout << " SACO " << dadosJ2 << endl; colorsito (5);
+        cout << "================================================="<<endl; colorsito (10);
+
+        if (dadosJ1>dadosJ2) {
+            ganador = nombreJugadorUno;
+            turno = 1;
+        } else if (dadosJ2>dadosJ1) {
+            ganador = nombreJugadorDos;
+            turno = 2; }
+        else { cout << " !HAY UN EMPATE! SE DEBE VOLVER A TIRAR" << endl; colorsito (5);
+               cout << "================================================="<<endl; colorsito (10);
+               system ("pause");}
+
+    } while (dadosJ1 == dadosJ2);
+
+    cout << " !EL JUGADOR " << ganador << " GANA! ELIJE SU CHIMPOCO PRIMERO!" << endl;
+    system ("pause");
+    return turno;
+}
+
+// INICIALIZAR PERSONAJES
 void inicializarPersonajes(int turno, int chimpocoUno[], int chimpocoDos[], string &nombreChimpocoUno, string &nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos) {
     int eleccionUno, eleccionDos;
-
+    system("cls");
     if (turno == 1) {
-        cout << "=================================================" << endl;
-        colorsito(10);
-        cout << "ELIGE EL JUGADOR " << nombreJugadorUno << endl;
-        cout << "=================================================" << endl;
-        colorsito(10);
+        colorsito(5);
+        cout << "========================================" << endl; colorsito(10);
+        cout << "         ELIGE EL JUGADOR " << nombreJugadorUno << endl; colorsito(5);
         eleccionUno = seleccionPersonaje();
-        system("pause");
         inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno);
 
         do {
-            cout << "=================================================" << endl;
-            colorsito(10);
-            cout << "ELIGE EL JUGADOR " << nombreJugadorDos << endl;
-            cout << "=================================================" << endl;
-            colorsito(10);
+            system("cls");
+            colorsito(5);
+            cout << "========================================" << endl; colorsito(10);
+            cout << "         ELIGE EL JUGADOR " << nombreJugadorDos << endl; colorsito(5);
             eleccionDos = seleccionPersonaje();
 
             if (eleccionUno == eleccionDos) {
-                cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl;
-            } else {
-                inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos);
-            }
+                colorsito (4);
+                cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl; colorsito (10);
+                system("pause");
+            } else { inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos);}
+
         } while (eleccionUno == eleccionDos);
 
     } else {
-        cout << "=================================================" << endl;
-        colorsito(10);
-        cout << "ELIGE EL JUGADOR " << nombreJugadorDos << endl;
-        cout << "=================================================" << endl;
-        colorsito(10);
+        colorsito(5);
+        cout << "========================================" << endl; colorsito(10);
+        cout << "         ELIGE EL JUGADOR " << nombreJugadorDos << endl; colorsito(5);
         eleccionDos = seleccionPersonaje();
-        system("pause");
         inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos);
 
         do {
-            cout << "=================================================" << endl;
-            colorsito(10);
-            cout << "ELIGE EL JUGADOR " << nombreJugadorUno << endl;
-            cout << "=================================================" << endl;
-            colorsito(10);
+            system("cls");
+            colorsito(5);
+            cout << "========================================" << endl; colorsito(10);
+            cout << "         ELIGE EL JUGADOR " << nombreJugadorUno << endl; colorsito(5);
             eleccionUno = seleccionPersonaje();
 
             if (eleccionUno == eleccionDos) {
-                cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl;
-            } else {
-                inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno);
-            }
+                colorsito (4);
+                cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl; colorsito (10);
+                system("pause");
+            } else { inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno);}
+
         } while (eleccionUno == eleccionDos);
     }
 }
@@ -354,7 +497,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 15;
             enemigo[3] = i;
             enemigo[4] = 0; //TURNOS SALTADOS
-            enemigo[5] = 150; //VIDA MAX
+            enemigo[9] = 150; //VIDA MAX // LO GUARDO EN EL 9 POR LA BARRA DE VIDA EN EL MODO VERSUS ;)
             nombreEnemigo = "STITCHARD" ;
             break;
         case 2: // FurbyZhor
@@ -364,7 +507,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 45;
             enemigo[3] = i;
             enemigo[4] = 0;
-            enemigo[5] = 300;
+            enemigo[9] = 300;
             nombreEnemigo = "FURBYZHOR" ;
             break;
         case 3: // HelloCathy
@@ -374,7 +517,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 55;
             enemigo[3] = i;
             enemigo[4] = 0;
-            enemigo [5] = 450;
+            enemigo [9] = 450;
             nombreEnemigo = "HELLOCATHY" ;
             break;
         case 4: // BabyYorda
@@ -384,7 +527,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 75;
             enemigo[3] = i;
             enemigo[4] = 0;
-            enemigo[5] = 700;
+            enemigo[9] = 700;
             nombreEnemigo = "BABYYORDA" ;
             break;
         case 5: // TioMickey
@@ -393,7 +536,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             enemigo[2] = 150;
             enemigo[3] = i;
             enemigo[4] = 0;
-            enemigo[5] = 1500;
+            enemigo[9] = 1500;
             nombreEnemigo = "TIOMICKEY" ;
             break;
         default:
@@ -587,7 +730,7 @@ void mostrarBarraVida(int chimpoco[]){
 
 void mostrarBarraVidaEnemigo(int enemigo[]){
     int porcentajeVida;
-    porcentajeVida = enemigo[0]*100/enemigo[5];
+    porcentajeVida = enemigo[0]*100/enemigo[9];
     porcentajeVida = porcentajeVida/10;
     cout << "[ " ;
     for (int i = 0 ; i < porcentajeVida ; i++){
@@ -891,47 +1034,6 @@ void pocionvida (int chimpoco[]){
 }
 
 
-/// FUNCIONES MODO VERSUS
-
-// TIRAR DADO
-int tirarDado() {
-    return rand() % 6 + 1;
-}
-
-// DADOS
-int dados (string nombreJugadorUno, string nombreJugadorDos){
-    string ganador;
-    int dadosJ1, dadosJ2, turno;
-    do{
-        system ("cls"); colorsito (5);
-        cout << "================================================="<<endl; colorsito (10);
-        cout << " TIRA LOS DADOS EL JUGADOR " << nombreJugadorUno << endl; colorsito (5);
-        cout << "================================================="<<endl; colorsito (10);
-        dadosJ1 = tirarDado();
-        cout <<" SACO " << dadosJ1 << endl; colorsito (5);
-        cout << "================================================="<<endl; colorsito (10);
-        cout << " TIRA LOS DADOS EL JUGADOR " << nombreJugadorDos << endl; colorsito (5);
-        cout << "================================================="<<endl; colorsito (10);
-        dadosJ2 = tirarDado();
-        cout << " SACO " << dadosJ2 << endl; colorsito (5);
-        cout << "================================================="<<endl; colorsito (10);
-
-        if (dadosJ1>dadosJ2) {
-            ganador = nombreJugadorUno;
-            turno = 1;
-        } else if (dadosJ2>dadosJ1) {
-            ganador = nombreJugadorDos;
-            turno = 2; }
-        else { cout << " !HAY UN EMPATE! SE DEBE VOLVER A TIRAR" << endl; colorsito (5);
-               cout << "================================================="<<endl; colorsito (10);
-               system ("pause");}
-
-    } while (dadosJ1 == dadosJ2);
-
-    cout << " !EL JUGADOR " << ganador << " GANA! ELIJE SU CHIMPOCO PRIMERO!" << endl;
-    system ("pause");
-    return turno;
-}
 
 /// MANUAL
 void manual (){
