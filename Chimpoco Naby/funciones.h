@@ -53,7 +53,7 @@ int dados (string nombreJugadorUno, string nombreJugadorDos);
 int tirarDado();
 
 //PASIVAS CHIMPOCO//
-void pasivasChimpoco (int chimpoco[] , int danoRealizado, int enemigo[] , string nombreEnemigo);
+void pasivasChimpoco(int chimpoco[], int &danoRealizado, int enemigo[], string nombreEnemigo);
 void pasivasrockito (int chimpoco[], int danoEnemigo);
 void pasivaspicante (int chimpoco[], int danoRealizado);
 void pasivafreddy (int chimpoco[], int enemigo[], string nombreEnemigo);

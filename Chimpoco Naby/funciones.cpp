@@ -152,8 +152,9 @@ int seleccionPersonaje(){
             break;
         default:
             system("cls");
-            cout << "Opcion invalida. Elija un numero valido." << endl;
             menuSeleccionPersonajes();
+            colorsito (4);
+            cout << "Opcion invalida. Elija un numero valido." << endl;
             eleccion = 0;
             break;
         }
@@ -181,7 +182,7 @@ void menuSeleccionPersonajes(){
     colorsito (5);
     cout << "========================================" << endl;
     colorsito (10);
-    cout << "Ingrese el personaje deseado: ";
+    cout << "Ingrese el personaje deseado: " << endl;
 }
 
 // INICIALIZAR CHIMPOCO
@@ -486,32 +487,53 @@ void modoVersus(){
 }
 
 // BATALLA VERSUS
-void batallaVersus (int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUno, string nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos){
-    int rondaChimpocoUno, rondaChimpocoDos = 0; bool tiomickey = false;
+void batallaVersus(int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUno, string nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos) {
+    int rondaChimpocoUno = 0, rondaChimpocoDos = 0;
+    bool tiomickey = false;
+
     while (true) {
         system("cls");
-        if (chimpocoUno[10] == 0) { colorsito (5);
-            cout << "========================================" << endl; colorsito(12);
-            cout << "         ES EL TURNO DE " << nombreJugadorUno << endl; colorsito(5);
+        if (chimpocoUno[10] > 0) {
+            chimpocoUno[10]-- ;
+            colorsito(4);
+            cout << nombreChimpocoUno << " ha sido congelado, y pierde su turno ;(" << endl;
+            colorsito(10);
+        } else {
+            colorsito(5);
+            cout << "========================================" << endl;
+            colorsito(12);
+            cout << "         ES EL TURNO DE " << nombreJugadorUno << endl;
+            colorsito(5);
             turnoJugadorVersus(rondaChimpocoUno, chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, tiomickey, rondaChimpocoDos);
-        } else { chimpocoUno[10] = 0; }
+        }
 
         if (chimpocoDos[0] <= 0) {
             mostrarGanador(nombreChimpocoUno);
-            break;}
+            break;
+        }
 
         pasivafreddy(chimpocoUno, chimpocoDos, nombreChimpocoDos);
 
-        if (chimpocoDos[10] == 0) { colorsito (5);
+        if (chimpocoDos[10] > 0) {
+            chimpocoDos[10]--;
+            colorsito(9);
+            cout << nombreChimpocoDos << " está congelado y no puede actuar este turno." << endl;
+            colorsito(10);
+        } else {
+            colorsito(5);
             system("cls");
-            cout << "========================================" << endl; colorsito(9);
-            cout << "         ES EL TURNO DE " << nombreJugadorDos << endl; colorsito(5);
+            cout << "========================================" << endl;
+            colorsito(9);
+            cout << "         ES EL TURNO DE " << nombreJugadorDos << endl;
+            colorsito(5);
             turnoJugadorVersus(rondaChimpocoDos, chimpocoDos, chimpocoUno, nombreChimpocoDos, nombreChimpocoUno, tiomickey, rondaChimpocoUno);
-        } else { chimpocoDos[10] = 0; }
+        }
 
         if (chimpocoUno[0] <= 0) {
             mostrarGanador(nombreChimpocoDos);
-            break;}
+            break;
+        }
+
         pasivafreddy(chimpocoDos, chimpocoUno, nombreChimpocoUno);
     }
 }
@@ -537,7 +559,6 @@ void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], strin
             int danoMin = chimpoco[1], danoMax = chimpoco[2];
             int danoRealizado = realizarAtaque(chimpoco, danoMin, danoMax);
 
-            // Aplicar boost de ataque si está activo
             if (chimpoco[5] > 0) {
                 danoRealizado += danoRealizado * 0.30;
                 chimpoco[5]--;
@@ -545,7 +566,15 @@ void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], strin
                 cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
             }
 
-            // Aplicar pasivas
+            if (chimpoco[7] > 0) {
+                int danoRecibido = danoRealizado;
+                danoRealizado -= danoRecibido * 0.20;
+                chimpoco[6]--;
+                colorsito(9);
+                cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[6] << endl;
+                colorsito(10);
+            }
+
             pasivasChimpoco(chimpoco, danoRealizado, enemigo, nombreEnemigo);
 
             enemigo[0] -= danoRealizado;
@@ -569,12 +598,17 @@ void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], strin
     }
 }
 
-// PASIVAS
-void pasivasChimpoco (int chimpoco[] , int danoRealizado, int enemigo[] , string nombreEnemigo){
-   pasivasrockito (chimpoco, danoRealizado);
-   pasivaspicante (chimpoco, danoRealizado);
-   pasivafreddy (chimpoco, enemigo, nombreEnemigo);
-   pasivarayin (chimpoco , enemigo, nombreEnemigo);
+// FUNCION PARA APLICAR LAS PASIVAS Y EFECTOS
+void pasivasChimpoco(int chimpoco[], int &danoRealizado, int enemigo[], string nombreEnemigo) {
+    if (chimpoco[3] == 1) {
+        pasivasrockito(chimpoco, danoRealizado);
+    } else if (chimpoco[3] == 2) {
+        pasivaspicante(chimpoco, danoRealizado);
+    } else if (chimpoco[3] == 3) {
+        pasivafreddy(chimpoco, enemigo, nombreEnemigo);
+    } else if (chimpoco[3] == 4) {
+        pasivarayin(chimpoco, enemigo, nombreEnemigo);
+    }
 }
 
 // COUT MOSTRAR GANADOR
@@ -680,6 +714,7 @@ void inicializarPersonajes(int turno, int chimpocoUno[], int chimpocoDos[], stri
         } while (eleccionUno == eleccionDos);
     }
 }
+
 
 /// FUNCIONES GODMODE ///
 
@@ -889,10 +924,7 @@ int turnoJugadorGM(int &rondaChimpoco, int chimpoco[], int enemigo[], string nom
     return 1; // Continúa en el juego
 }
 
-
-
-
-// ESTADISTICAS
+/// ESTADISTICAS
 void estadisticas (){}
 
 // MOSTRAR VIDA
@@ -1209,8 +1241,7 @@ int menuitems(int chimpoco[], int enemigo[], string nombreChimpoco, string nombr
     mostrarVida (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
     colorsito(5);
     cout << endl;
-    cout << char(201) <<"================================================================================" << char(187) <<endl;
-    colorsito (5);
+    cout << char(201) <<"================================================================================" << char(187) <<endl; colorsito (5);
     cout << char (186); colorsito(9); cout << " 1. Boost de ataque: Incrementa tu dano por 30% << CANTIDAD; " << chimpoco [4] << "                  " ; colorsito(5); cout << char(186) << endl;
     cout << char (186); colorsito(9); cout << " 2. Boost de defensa: Reduce el dano recibido un 20% << CANTIDAD; " << chimpoco [6]<< "             " ; colorsito(5); cout << char(186) << endl;
     cout << char (186); colorsito(9); cout << " 3. Pocion de vida: Recupera el 50% de tu vida total << CANTIDAD; " << chimpoco [8] << "             " ; colorsito(5); cout << char(186) << endl;
