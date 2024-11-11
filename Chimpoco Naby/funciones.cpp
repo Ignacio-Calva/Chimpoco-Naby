@@ -84,10 +84,10 @@ string cargarNombre(){
 }
 
 // SELECCION PERSONAJE
-int seleccionPersonaje(){
-    menuSeleccionPersonajes();
-    int eleccion = 0;
-    while (eleccion == 0){
+int seleccionPersonaje(bool bGodMode){
+    menuSeleccionPersonajes(bGodMode);
+    int eleccion = 5;
+    while (eleccion == 5){
         cin >> eleccion;
         switch (eleccion){
         case 1:
@@ -110,11 +110,24 @@ int seleccionPersonaje(){
             cout << "El personaje seleccionado es RAYIN" << endl;
             colorsito (7);
             break;
+        case 0:
+            if (bGodMode) {
+                colorsito(4);
+                cout << "Saliendo al menu principal..." << endl;
+                colorsito(7);
+                system("pause");
+                return 0;
+            } else {
+                system("cls");
+                cout << "Opcion invalida. Elija un numero valido." << endl;
+                menuSeleccionPersonajes(bGodMode);
+                eleccion = 5;
+                break;}
         default:
             system("cls");
             cout << "Opcion invalida. Elija un numero valido." << endl;
-            menuSeleccionPersonajes();
-            eleccion = 0;
+            menuSeleccionPersonajes(bGodMode);
+            eleccion = 5;
             break;
         }
     }
@@ -123,21 +136,16 @@ int seleccionPersonaje(){
 }
 
 // MENU SELECCION PERSONAJE
-void menuSeleccionPersonajes(){
+void menuSeleccionPersonajes(bool bGodMode){
     colorsito (5);
-    cout << "========================================" << endl;
-    colorsito (10);
-    cout << "           LISTA DE PERSONAJES          " << endl;
-    colorsito (5);
-    cout << "========================================" << endl;
-    colorsito (6);
-    cout << "(1) ROCKITO" << endl;
-    colorsito (4);
-    cout << "(2) PICANTE" << endl;
-    colorsito (9);
-    cout << "(3) FREDDY" << endl;
-    colorsito (14);
-    cout << "(4) RAYIN" << endl;
+    cout << "========================================" << endl; colorsito (10);
+    cout << "           LISTA DE PERSONAJES          " << endl; colorsito (5);
+    cout << "========================================" << endl; colorsito (6);
+    cout << "(1) ROCKITO" << endl; colorsito (4);
+    cout << "(2) PICANTE" << endl; colorsito (9);
+    cout << "(3) FREDDY" << endl; colorsito (14);
+    cout << "(4) RAYIN" << endl; colorsito (4);
+    if (bGodMode) { cout << "(0) SALIR AL MENU" << endl;}
     colorsito (5);
     cout << "========================================" << endl;
     colorsito (10);
@@ -164,6 +172,7 @@ void bienvenidaAventura() {
 
 // MODO AVENTURA
 void modoAventura (){
+    bool bGodMode = false;
     bienvenidaAventura();
     string nombreJugador;
     cout << " Ingresa tu nombre: ";
@@ -172,11 +181,11 @@ void modoAventura (){
     string nombreChimpoco;
     string nombreEnemigo;
     system("cls");
-    int eleccion = seleccionPersonaje();
+    int eleccion = seleccionPersonaje(bGodMode);
     for (int i = 1 ; i < 6 ; i++ ){
-        inicializarChimpoco (eleccion, chimpoco, nombreChimpoco);
+        inicializarChimpoco (eleccion, chimpoco, nombreChimpoco,bGodMode);
         inicializarEnemigo (i, enemigo, nombreEnemigo);
-        batalla (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+        batalla (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, bGodMode);
         cambioderonda(i);
     }
     coutFinal(nombreChimpoco, nombreEnemigo);
@@ -200,8 +209,6 @@ void bienvenidaVersus (){
     colorsito(5);
     cout << "===========================================================" << endl;
     colorsito(11);
-
-
 }
 
 // MODO VERSUS
@@ -220,7 +227,7 @@ void modoVersus(){
     batallaVersus (chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, nombreJugadorUno, nombreJugadorDos);
 }
 
-/// FUNCIONES MODO VERSUS // AGREGAR ESTO nombreJugadorUno, nombreJugadosDos); A LA BATLLA VERSUS XDXDXDXD
+/// FUNCIONES MODO VERSUS
 
 void batallaVersus (int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUno, string nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos){
     int rondaChimpocoUno, rondaChimpocoDos = 0; bool tiomickey = false;
@@ -252,14 +259,14 @@ void batallaVersus (int chimpocoUno[], int chimpocoDos[], string nombreChimpocoU
     }
 }
 
-/// TURNO JUGADOR
+/// TURNO JUGADOR VERSUS
 void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo) {
     rondaChimpoco++;
 
     while (true) {
         mostrarVida(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
-        colorsito(4);
+        colorsito(3);
         cout << "1. Atacar " << endl;
         colorsito(11);
         cout << "2. Usar item " << endl;
@@ -371,60 +378,155 @@ int dados (string nombreJugadorUno, string nombreJugadorDos){
 void inicializarPersonajes(int turno, int chimpocoUno[], int chimpocoDos[], string &nombreChimpocoUno, string &nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos) {
     int eleccionUno, eleccionDos;
     system("cls");
+    bool bGodMode = false;
     if (turno == 1) {
         colorsito(5);
         cout << "========================================" << endl; colorsito(10);
         cout << "         ELIGE EL JUGADOR " << nombreJugadorUno << endl; colorsito(5);
-        eleccionUno = seleccionPersonaje();
-        inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno);
+        eleccionUno = seleccionPersonaje(bGodMode);
+        inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno, bGodMode);
 
         do {
             system("cls");
             colorsito(5);
             cout << "========================================" << endl; colorsito(10);
             cout << "         ELIGE EL JUGADOR " << nombreJugadorDos << endl; colorsito(5);
-            eleccionDos = seleccionPersonaje();
+            eleccionDos = seleccionPersonaje(bGodMode);
 
             if (eleccionUno == eleccionDos) {
                 colorsito (4);
                 cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl; colorsito (10);
                 system("pause");
-            } else { inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos);}
-
+            } else { inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos, bGodMode);}
         } while (eleccionUno == eleccionDos);
 
     } else {
         colorsito(5);
         cout << "========================================" << endl; colorsito(10);
         cout << "         ELIGE EL JUGADOR " << nombreJugadorDos << endl; colorsito(5);
-        eleccionDos = seleccionPersonaje();
-        inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos);
+        eleccionDos = seleccionPersonaje(bGodMode);
+        inicializarChimpoco(eleccionDos, chimpocoDos, nombreChimpocoDos, bGodMode);
 
         do {
             system("cls");
             colorsito(5);
             cout << "========================================" << endl; colorsito(10);
             cout << "         ELIGE EL JUGADOR " << nombreJugadorUno << endl; colorsito(5);
-            eleccionUno = seleccionPersonaje();
+            eleccionUno = seleccionPersonaje(bGodMode);
 
             if (eleccionUno == eleccionDos) {
                 colorsito (4);
                 cout << "NO PUEDES ELEGIR ESE CHIMPOCO, ELIGE OTRO" << endl; colorsito (10);
                 system("pause");
-            } else { inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno);}
+            } else { inicializarChimpoco(eleccionUno, chimpocoUno, nombreChimpocoUno, bGodMode);}
 
         } while (eleccionUno == eleccionDos);
     }
 }
 
+void bienvenidaGodMode(){
+ system("cls");
+    colorsito(5);
+    cout << "===========================================================" << endl;
+    colorsito(11);
+    cout << R"(
+         Bienvenidos al GOD MODE de ChimpocoFight!
+         Este es un modo de prueba con poder ilimitado.
+
+       Cada jugador tendra 9999 puntos de vida y 99 pociones,
+            permitiendo experimentar al maximo!
+
+        Pueden salir del combate y volver al menu principal
+                 en cualquier momento.
+
+                    !Que comience la batalla!
+        )" << endl;
+    colorsito(5);
+    cout << "===========================================================" << endl;
+    colorsito(11);
+}
+
 // GOD MODE
-void godMode (){}
+void godMode (){
+    bienvenidaGodMode();
+    string nombreJugador, nombreChimpoco, nombreEnemigo;
+    cout << " Ingresa tu nombre: ";
+    cin >> nombreJugador;
+    int chimpoco [11], enemigo [10]; int salir = 1;
+    system("cls");
+    bool bGodMode = true;
+    int eleccion = seleccionPersonaje(bGodMode);
+    if (eleccion == 0) {return;}
+    for (int i = 1 ; i < 6 ; i++ ){
+        inicializarChimpoco (eleccion, chimpoco, nombreChimpoco, bGodMode);
+        inicializarEnemigo (i, enemigo, nombreEnemigo);
+        salir = batallaGodMode (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, bGodMode);
+        if (salir == 0) {return;}
+        cambioderonda(i);
+    }
+    coutFinal(nombreChimpoco, nombreEnemigo);
+}
+
+//BATALLA GODMODE
+int batallaGodMode (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo, bool bGodMode) {
+    int rondaChimpoco, rondaEnemigo = 0;
+    int salir = 1;
+    bool tiomickey = false;
+    while (true) {
+        system("cls");
+
+        pasivaBabyYorda (rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+
+        if (chimpoco [10] == 0){
+            salir = turnoJugador (rondaChimpoco, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, rondaEnemigo, bGodMode);
+        } else {chimpoco [10] = 0;}
+
+        if (salir == 0) {return 0;}
+
+        if (enemigo[0] <= 0) {
+            system("cls");
+            colorsito (10); // VERDE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Felicidades!               *" << endl;
+            cout << "*     "<< nombreEnemigo <<" HA SIDO DERROTADO !   *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            colorsito(10); // VERDE
+            system("pause");
+            break;
+        }
+
+        pasivafreddy  (chimpoco, enemigo, nombreEnemigo); // ACTIVA SU PASIVA INDEPENDIENTEMENTE DE SI ATACA O DEFIENDE
+
+        if (enemigo[4] == 0){
+            salir = turnoEnemigo(rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, bGodMode);
+        } else {enemigo [4] = enemigo[4]-1;}
+
+        if (salir == 0) {return 0;}
+
+        if (chimpoco[0] <= 0) {
+            system ("cls");
+            colorsito(12); // ROJO FUERTE
+            cout << "***************************************" << endl;
+            cout << "*                                     *" << endl;
+            cout << "*         !Lo Siento!                 *" << endl;
+            cout << "*      Has Perdido el Juego...        *" << endl;
+            cout << "*                                     *" << endl;
+            cout << "***************************************" << endl;
+            colorsito (10);
+            system("pause");
+            break;
+        }
+    }
+return 1;
+}
 
 // ESTADISTICAS
 void estadisticas (){}
 
 // INICIALIZAR CHIMPOCO
-void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) {
+void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco, bool bGodMode) {
     switch (eleccion){
         case 1: // Rockito
             /* VIDA */ chimpoco [0] = 1200;
@@ -439,6 +541,8 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             /* VIDA MAXIMA */ chimpoco [9] = 1200;
             /* TURNOS SALTADOS */ chimpoco [10] = 0;
             nombreChimpoco = "ROCKYTO" ;
+            if (bGodMode) { chimpoco [0] = 9999; chimpoco [9] = 9999; chimpoco [4] =99; chimpoco [6] = 99; chimpoco [8] = 99;
+                                  cout << "GODMODE ACTIVADO" << endl;}
             break;
         case 2: // Picante
             chimpoco [0] = 500;
@@ -453,6 +557,8 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [9] = 500;
             chimpoco [10] = 0;
             nombreChimpoco = "PICANTE" ;
+            if (bGodMode) { chimpoco [0] = 9999; chimpoco [9] = 9999; chimpoco [4] =99; chimpoco [6] = 99; chimpoco [8] = 99;
+                                  cout << "GODMODE ACTIVADO" << endl;}
             break;
         case 3: // Freddy
             chimpoco [0] = 700;
@@ -467,6 +573,8 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [9] = 700;
             chimpoco [10] = 0;
             nombreChimpoco = "FREDDY" ;
+            if (bGodMode) { chimpoco [0] = 9999; chimpoco [9] = 9999; chimpoco [4] =99; chimpoco [6] = 99; chimpoco [8] = 99;
+                                  cout << "GODMODE ACTIVADO" << endl;}
             break;
         case 4: // Rayin
             chimpoco [0] = 600;
@@ -481,6 +589,8 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
             chimpoco [9] = 600;
             chimpoco [10] = 0;
             nombreChimpoco = "RAYIN" ;
+            if (bGodMode) { chimpoco [0] = 9999; chimpoco [9] = 9999; chimpoco [4] =99; chimpoco [6] = 99; chimpoco [8] = 99;
+                                  cout << "GODMODE ACTIVADO" << endl;}
             break;
         default:
             break;
@@ -545,7 +655,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
 }
 
 /// BATALLA
-void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo) {
+void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo, bool bGodMode) {
     int rondaChimpoco, rondaEnemigo = 0;
     bool tiomickey = false;
     while (true) {
@@ -554,7 +664,7 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
         pasivaBabyYorda (rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
 
         if (chimpoco [10] == 0){
-            turnoJugador (rondaChimpoco, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, rondaEnemigo);
+            turnoJugador (rondaChimpoco, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, rondaEnemigo, bGodMode);
         } else {chimpoco [10] = 0;}
 
         if (enemigo[0] <= 0) {
@@ -574,7 +684,7 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
         pasivafreddy  (chimpoco, enemigo, nombreEnemigo); // ACTIVA SU PASIVA INDEPENDIENTEMENTE DE SI ATACA O DEFIENDE
 
         if (enemigo[4] == 0){
-            turnoEnemigo(rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey);
+            turnoEnemigo(rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, bGodMode);
         } else {enemigo [4] = enemigo[4]-1;}
 
         if (chimpoco[0] <= 0) {
@@ -594,23 +704,29 @@ void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nom
 }
 
 /// TURNO JUGADOR
-void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo) {
+int turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo, bool bGodMode) {
     rondaChimpoco++;
 
     while (true) {
         system("cls");
         mostrarVida (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
-        colorsito(4);
-        cout << "1. Atacar " << endl;
-        colorsito(11);
-        cout << "2. Usar item " << endl;
+        colorsito(3);
+        cout << "1. Atacar " << endl; colorsito(11);
+        cout << "2. Usar item " << endl; colorsito (4);
+        if (bGodMode) {
+        cout << "0. SALIR AL MENU " << endl; }
         colorsito(10);
         cout << "Elige tu accion: ";
         int opcion;
         cin >> opcion;
 
 
-        if (opcion == 1) {
+        if (opcion == 0 && bGodMode == true) {
+            colorsito (4);
+            cout << "Regresando al menu principal..." << endl;
+            system("pause");
+            return 0;
+        } else if (opcion == 1){
             int danoMin = chimpoco[1], danoMax = chimpoco[2];
             int danoRealizado = realizarAtaque(chimpoco, danoMin, danoMax);
             pasivaTioMickey (danoRealizado, enemigo, chimpoco, rondaEnemigo, tiomickey); // PRIMERA PARTE DE SU PASIVA, LA OTRA PARTE ESTA EN EL TURNO ENEMIGO
@@ -630,12 +746,12 @@ void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nomb
             colorsito (10);
             pasivarayin(chimpoco, enemigo, nombreEnemigo);
             system("pause");
-            break;
+            return 1;
 
         } else if (opcion == 2) {
             int resultado = usaritem(chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
             if (resultado == 0) {
-            } else { break;}
+            } else { return 1;}
 
         } else {
             colorsito(4);
@@ -647,7 +763,7 @@ void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nomb
 }
 
 /// TURNO ENEMIGO
-void turnoEnemigo (int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey) {
+int turnoEnemigo (int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, bool bGodMode) {
     rondaEnemigo ++;
     system("cls");
 
@@ -681,6 +797,15 @@ void turnoEnemigo (int &rondaEnemigo, int chimpoco[], int enemigo[], string nomb
     colorsito (4);
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl;
     colorsito (10);
+
+    if (bGodMode){ colorsito (4);
+            cout << "0. SALIR AL MENU" << endl; colorsito (10);
+            cout << "1. CONTINUAR" << endl;
+            int salir;
+            cin >> salir;
+            if ( salir==0 ){ return 0;}
+    }
+
     system("pause");
 }
 

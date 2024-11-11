@@ -5,7 +5,7 @@ using namespace std;
 //MENUS//
 void menuPrincipal ();
 void mostrarMenu ();
-void menuSeleccionPersonajes();
+void menuSeleccionPersonajes(bool bgodMod);
 void cambioderonda (int i);
 void mostrarBarraVida (int chimpoco[]);
 void mostrarBarraVidaEnemigo(int enemigo[]);
@@ -13,6 +13,11 @@ void mostrarVida (int chimpoco[], int enemigo[], string nombreChimpoco, string n
 void coutpasivas (int rondaEnemigo, int enemigo []);
 void coutFinal (string nombreChimpoco, string nombreEnemigo);
 void mostrarGanador(string &nombreGanador);
+
+//BIENVENIDAS//
+void bienvenidaGodMode();
+void bienvenidaAventura();
+void bienvenidaVersus();
 
 //SWITCH MENU//
 void modoAventura();
@@ -23,18 +28,18 @@ void manual ();
 
 //CARGA DE DATOS//
 string cargarNombre();
-int seleccionPersonaje();
-void inicializarChimpoco(int eleccion, int chimpoco[], string &nombreChimpoco);
+int seleccionPersonaje(bool bgodMode);
+void inicializarChimpoco(int eleccion, int chimpoco[], string &nombreChimpoco, bool godMode);
 void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 void inicializarPersonajes (int turno, int chimpocoUno[], int chimpocoDos[], string &nombreChimpocoUno, string &nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos);
 
 //BATALLAS//
-void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo);
+void batalla (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo, bool godMode);
 void batallaVersus (int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUno, string nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos);
-
+int batallaGodMode (int chimpoco[], int enemigo[], string &nombreChimpoco, string &nombreEnemigo, bool bGodMode);
 //TURNOS//
-void turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo);
-void turnoEnemigo(int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey);
+int turnoJugador(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo, bool bGodMode);
+int turnoEnemigo(int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey,bool bGodMode);
 void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo);
 
 //ACCIONES//
