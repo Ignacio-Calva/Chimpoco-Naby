@@ -504,7 +504,7 @@ void batallaVersus(int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUn
             colorsito(12);
             cout << "         ES EL TURNO DE " << nombreJugadorUno << endl;
             colorsito(5);
-            turnoJugadorVersus(rondaChimpocoUno, chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, tiomickey, rondaChimpocoDos);
+            turnoJugadorVersus(rondaChimpocoUno, chimpocoUno, chimpocoDos, nombreChimpocoUno, nombreChimpocoDos, rondaChimpocoDos);
         }
 
         if (chimpocoDos[0] <= 0) {
@@ -512,13 +512,13 @@ void batallaVersus(int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUn
             break;
         }
 
-        pasivafreddy(chimpocoUno, chimpocoDos, nombreChimpocoDos);
-
         if (chimpocoDos[10] > 0) {
+            system ("cls");
             chimpocoDos[10]--;
             colorsito(9);
-            cout << nombreChimpocoDos << " está congelado y no puede actuar este turno." << endl;
+            cout << nombreChimpocoDos << " esta congelado y no puede actuar este turno :( " << endl;
             colorsito(10);
+            system ("pause");
         } else {
             colorsito(5);
             system("cls");
@@ -526,20 +526,18 @@ void batallaVersus(int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUn
             colorsito(9);
             cout << "         ES EL TURNO DE " << nombreJugadorDos << endl;
             colorsito(5);
-            turnoJugadorVersus(rondaChimpocoDos, chimpocoDos, chimpocoUno, nombreChimpocoDos, nombreChimpocoUno, tiomickey, rondaChimpocoUno);
+            turnoJugadorVersus(rondaChimpocoDos, chimpocoDos, chimpocoUno, nombreChimpocoDos, nombreChimpocoUno, rondaChimpocoUno);
         }
 
         if (chimpocoUno[0] <= 0) {
             mostrarGanador(nombreChimpocoDos);
             break;
         }
-
-        pasivafreddy(chimpocoDos, chimpocoUno, nombreChimpocoUno);
     }
 }
 
 // TURNO JUGADOR VERSUS
-void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey, int &rondaEnemigo) {
+void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, int &rondaEnemigo) {
     rondaChimpoco++;
 
     while (true) {
@@ -566,12 +564,15 @@ void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], strin
                 cout << "Se ha consumido una carga de pocion de ataque. Restantes: " << chimpoco[5] << endl;
             }
 
-            if (chimpoco[7] > 0) {
+            if (enemigo[7] > 0) {
                 int danoRecibido = danoRealizado;
                 danoRealizado -= danoRecibido * 0.20;
-                chimpoco[6]--;
+                cout << "El daño sin la defensa habria sido: " << danoRecibido << endl;
+                cout << "El daño final es de: " << danoRealizado << endl;
+                //danoRealizado = danoRealizado - danoRealizado * 0.20;
+                enemigo[7]--;
                 colorsito(9);
-                cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[6] << endl;
+                cout << "Se ha consumido una carga de pocion de defensa de " << nombreEnemigo << ". Restantes: " << enemigo [7] << endl;
                 colorsito(10);
             }
 
@@ -605,9 +606,16 @@ void pasivasChimpoco(int chimpoco[], int &danoRealizado, int enemigo[], string n
     } else if (chimpoco[3] == 2) {
         pasivaspicante(chimpoco, danoRealizado);
     } else if (chimpoco[3] == 3) {
-        pasivafreddy(chimpoco, enemigo, nombreEnemigo);
+        int chance = rand() % 100;
+        if (chance < 70) {
+            enemigo[10] += 2;
+            cout << nombreEnemigo << " ha sido congelado!" << endl;}
     } else if (chimpoco[3] == 4) {
-        pasivarayin(chimpoco, enemigo, nombreEnemigo);
+        int chance = rand() % 100;
+        if (chance < 70) {
+            enemigo[10] += 1;
+            cout << nombreEnemigo << " ha sido paralizado!" << endl;
+        }
     }
 }
 
