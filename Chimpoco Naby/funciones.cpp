@@ -853,7 +853,7 @@ int batallaGodMode(int chimpoco[], int enemigo[], string &nombreChimpoco, string
         pasivafreddy(chimpoco, enemigo, nombreEnemigo); // ACTIVA SU PASIVA INDEPENDIENTEMENTE DE SI ATACA O DEFIENDE
 
         if (enemigo[4] == 0) {
-            turnoEnemigo(rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey, 0);
+            turnoEnemigoGM (rondaEnemigo, chimpoco, enemigo, nombreChimpoco, nombreEnemigo, tiomickey);
         } else {enemigo[4] = enemigo[4] - 1;}
 
         if (salir == 0) {return 0;}  // Si el jugador decide salir, retorna 0 para salir al menú principal.
@@ -930,6 +930,42 @@ int turnoJugadorGM(int &rondaChimpoco, int chimpoco[], int enemigo[], string nom
         }
     }
     return 1; // Continúa en el juego
+}
+
+// TURNO ENEMIGO GM
+void turnoEnemigoGM (int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey) {
+    rondaEnemigo ++;
+    system("cls");
+
+    pasivaStitchard (enemigo, rondaEnemigo);
+    pasivaFurbyZhor (rondaEnemigo, enemigo, chimpoco, nombreChimpoco);
+    mostrarVida (chimpoco, enemigo, nombreChimpoco, nombreEnemigo);
+    coutpasivas (rondaEnemigo, enemigo);
+
+    int danoMin = enemigo[1];
+    int danoMax = enemigo[2];
+    int danoEnemigo = realizarAtaque(chimpoco, danoMin, danoMax);
+
+    /// BOOST DE DEFENSA
+
+    if (chimpoco[7] > 0){
+        danoEnemigo -= danoEnemigo* 0.20;
+        chimpoco[7]--;
+        colorsito (9);
+        cout << "Se ha consumido una carga de pocion de defensa. Restantes: " << chimpoco[7] << endl;
+    }
+
+    pasivasrockito (chimpoco, danoEnemigo);
+
+    if (tiomickey) {
+        danoEnemigo += danoEnemigo * 0.15; // SEGUNDA PARTE DE SU PASIVA
+        cout << "TioMickey ha aumentado su ataque en un 15% debido a su pasiva!" << endl;
+        tiomickey = false;
+    }
+
+    chimpoco [0] -= danoEnemigo;
+    colorsito (4);
+    cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl; colorsito (10);
 }
 
 /// ESTADISTICAS

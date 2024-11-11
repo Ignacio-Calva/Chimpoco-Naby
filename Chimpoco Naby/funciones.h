@@ -35,6 +35,7 @@ void inicializarChimpoco(int eleccion, int chimpoco[], string &nombreChimpoco);
 void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo);
 void inicializarPersonajes (int turno, int chimpocoUno[], int chimpocoDos[], string &nombreChimpocoUno, string &nombreChimpocoDos, string nombreJugadorUno, string nombreJugadorDos);
 void inicializarChimpocoGM (int eleccion, int chimpoco[], string &nombreChimpoco);
+void turnoEnemigoGM (int &rondaEnemigo, int chimpoco[], int enemigo[], string nombreChimpoco, string nombreEnemigo, bool &tiomickey);
 void cargarEstadisticas (int partidaActual[],int danoRecibido[], int danoRealizado[], int pocionesUsadas[], int turnosSob[]);
 
 //BATALLAS//
