@@ -446,6 +446,8 @@ void turnoEnemigo (int &rondaEnemigo, int chimpoco[], int enemigo[], string nomb
     colorsito (4);
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl; colorsito (10);
     partidaActual [0] = partidaActual [0] + danoEnemigo;
+    colorsito (10);
+    system("pause");
 }
 
 /// FUNCIONES MODO VERSUS ///
@@ -531,6 +533,7 @@ void batallaVersus(int chimpocoUno[], int chimpocoDos[], string nombreChimpocoUn
             turnoJugadorVersus(rondaChimpocoDos, chimpocoDos, chimpocoUno, nombreChimpocoDos, nombreChimpocoUno, rondaChimpocoUno);
         }
 
+
         if (chimpocoUno[0] <= 0) {
             mostrarGanador(nombreChimpocoDos);
             break;
@@ -599,6 +602,7 @@ void turnoJugadorVersus(int &rondaChimpoco, int chimpoco[], int enemigo[], strin
         }
     }
 }
+
 
 // FUNCION PARA APLICAR LAS PASIVAS Y EFECTOS
 void pasivasChimpoco(int chimpoco[], int &danoRealizado, int enemigo[], string nombreEnemigo) {
@@ -966,6 +970,7 @@ void turnoEnemigoGM (int &rondaEnemigo, int chimpoco[], int enemigo[], string no
     chimpoco [0] -= danoEnemigo;
     colorsito (4);
     cout << nombreEnemigo << " ha infligido " << danoEnemigo << " de dano a " << nombreChimpoco << endl; colorsito (10);
+    colorsito (10); system ("pause");
 }
 
 /// ESTADISTICAS
