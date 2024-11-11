@@ -116,7 +116,7 @@ void modoAventura (int danoRecibido [], int danoRealizado [], int pocionesUsadas
     system("cls");
     int eleccion = seleccionPersonaje();
     for (int i = 1 ; i < 6 ; i++ ){
-        inicializarChimpocoGM (eleccion, chimpoco, nombreChimpoco);
+        inicializarChimpoco (eleccion, chimpoco, nombreChimpoco);
         inicializarEnemigo (i, enemigo, nombreEnemigo);
         batalla (chimpoco, enemigo, nombreChimpoco, nombreEnemigo, partidaActual);
         cambioderonda(i);
@@ -254,8 +254,7 @@ void inicializarChimpoco (int eleccion, int chimpoco[], string &nombreChimpoco) 
 void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
     switch (i){
         case 1: // Stitchard
-            //enemigo[0] = 150;
-            enemigo[0] = 100;
+            enemigo[0] = 150;
             enemigo[1] = 5;
             enemigo[2] = 15;
             enemigo[3] = i;
@@ -264,8 +263,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             nombreEnemigo = "STITCHARD" ;
             break;
         case 2: // FurbyZhor
-            //enemigo[0] = 300;
-            enemigo[0] = 100;
+            enemigo[0] = 300;
             enemigo[1] = 25;
             enemigo[2] = 45;
             enemigo[3] = i;
@@ -274,8 +272,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             nombreEnemigo = "FURBYZHOR" ;
             break;
         case 3: // HelloCathy
-            //enemigo[0] = 450;
-            enemigo[0] = 100;
+            enemigo[0] = 450;
             enemigo[1] = 40;
             enemigo[2] = 55;
             enemigo[3] = i;
@@ -284,8 +281,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             nombreEnemigo = "HELLOCATHY" ;
             break;
         case 4: // BabyYorda
-            //enemigo[0] = 700;
-            enemigo[0] = 100;
+            enemigo[0] = 700;
             enemigo[1] = 55;
             enemigo[2] = 75;
             enemigo[3] = i;
@@ -294,8 +290,7 @@ void inicializarEnemigo (int i, int enemigo[], string &nombreEnemigo){
             nombreEnemigo = "BABYYORDA" ;
             break;
         case 5: // TioMickey
-            //enemigo[0] = 1500;
-            enemigo[0] = 100;
+            enemigo[0] = 1500;
             enemigo[1] = 25;
             enemigo[2] = 150;
             enemigo[3] = i;
@@ -613,12 +608,12 @@ void pasivasChimpoco(int chimpoco[], int &danoRealizado, int enemigo[], string n
         pasivaspicante(chimpoco, danoRealizado);
     } else if (chimpoco[3] == 3) {
         int chance = rand() % 100;
-        if (chance < 70) {
+        if (chance < 15) {
             enemigo[10] += 2;
             cout << nombreEnemigo << " ha sido congelado!" << endl;}
     } else if (chimpoco[3] == 4) {
         int chance = rand() % 100;
-        if (chance < 70) {
+        if (chance < 25) {
             enemigo[10] += 1;
             cout << nombreEnemigo << " ha sido paralizado!" << endl;
         }
