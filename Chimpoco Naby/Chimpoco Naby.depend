@@ -16,19 +16,21 @@
 	<windows.h>
 	"funciones.h"
 
-1726095711 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp
+1731324509 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\main.cpp
 	<iostream>
 	<cstring>
+	<windows.h>
 	"funciones.h"
 
-1729436259 c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.h
+1731326679 c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.h
 	<cstring>
 
-1726082592 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.cpp
+1731328096 source:c:\users\lenovo\documents\github\chimpoco-naby\chimpoco naby\funciones.cpp
 	<iostream>
 	<cstring>
 	<time.h>
 	<conio.h>
+	<windows.h>
 	"funciones.h"
 
 1725841512 source:d:\usuarios\oem\desktop\juegos\chimpocos\chimpoco-naby\chimpoco naby\main.cpp
@@ -82,4 +84,21 @@
 1730489375 d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos\chimpoco-naby\chimpoco naby\chimpoco naby\menus.h
 	<cstring>
 	<iostream>
+
+1730854754 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos nabi ultima version\chimpoco-naby\chimpoco naby\main.cpp
+	<iostream>
+	<cstring>
+	<windows.h>
+	"funciones.h"
+
+1731355646 d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos nabi ultima version\chimpoco-naby\chimpoco naby\funciones.h
+	<cstring>
+
+1731360891 source:d:\usuarios\oem\desktop\happines is a butterfly\juegos\chimpocos nabi ultima version\chimpoco-naby\chimpoco naby\funciones.cpp
+	<iostream>
+	<cstring>
+	<time.h>
+	<conio.h>
+	<windows.h>
+	"funciones.h"
 
